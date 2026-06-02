@@ -1,0 +1,63 @@
+# Abu Dhabi DARI analysis, central tunable configuration.
+# Every assumption that downstream scripts depend on lives here.
+
+data_path: /root/.claude/uploads/87146dfe-f525-41fc-a638-d5be328ee62f/17939a6b-recent_sales_2.csv
+output_root: abu_dhabi_analysis
+
+cleaning:
+  share_threshold: 0.99
+  min_price_aed: 100000
+  outlier_trim_percentiles: [0.5, 99.5]
+  min_cell_n: 30
+  preliminary_quarters: 2
+
+tiers:
+  method: terciles_on_trailing_12m_psm
+
+repeat_sales:
+  feasible: false
+  fallback: hedonic
+  min_holding_days: 180
+
+costs:
+  adm_transfer_fee_pct: 0.02
+  agent_fee_pct: 0.02
+  mortgage_reg_fee_pct: 0.0025
+  vacancy_rate_pct: 0.07
+  service_charge_aed_per_sqft:
+    affordable: 12
+    midtier: 18
+    luxury: 28
+
+offplan_irr:
+  payment_plan_default: [10, 10, 10, 10, 10, 50]
+  milestone_months: [0, 6, 12, 18, 24, 36]
+  resale_assumption_at_handover: median_secondary_psm_on_handover_quarter
+
+triangulation:
+  variance_tolerance_pct: 15
+
+freehold_zones:
+  whitelist:
+    - Al Reem Island
+    - Yas Island
+    - Al Saadiyat Island
+    - Al Raha Beach
+    - Al Reef
+    - Masdar City
+    - Hudayriyat Island
+    - Al Maryah Island
+    - Al Jubail Island
+    - Fahid Island
+    - Zayed City
+    - Al Shamkha
+    - Ghantout
+  excluded_or_restricted: []
+
+scoring_weights:
+  net_yield: 0.25
+  appreciation_momentum_mix_adjusted: 0.20
+  cycle_position: 0.20
+  liquidity: 0.15
+  supply_risk_inverse: 0.10
+  value_vs_own_history: 0.10

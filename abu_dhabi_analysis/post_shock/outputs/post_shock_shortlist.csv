@@ -1,0 +1,8 @@
+district,ptype,layout,tier,n_post,psm_post_ready,price_med,net_yield_pct,stress_net_yield_pct,naive_change_pct,excess_change_pct,vol_change_ratio,regime_class,distress_count,dump_signal_pp,s_yield,s_stress_yield,s_panic,s_distress,s_liquidity,s_supply_inv,total,confidence
+Al Reem Island,apartment,1 bed,affordable,763.0,15000.0,1200000.0,5.87,4.87,10.48,28.15,1.29,resilient,4,-0.41,96.96,97.75,0,100.0,100.0,66.34,75.38,high
+Al Reem Island,apartment,studio,affordable,276.0,13945.23,567184.8,6.02,4.96,9.05,27.42,1.5,resilient,4,-0.41,100.0,100.0,0,100.0,35.15,66.34,70.15,high
+Al Reem Island,apartment,2 beds,affordable,731.0,14020.72,1682390.0,5.35,4.41,24.58,35.06,1.39,resilient,4,-0.41,86.19,86.69,0,100.0,95.74,66.34,70.07,high
+Yas Island,apartment,1 bed,midtier,698.0,18912.22,1470000.0,5.35,4.39,21.45,29.22,2.31,resilient,1,24.15,86.19,86.36,0,43.07,91.34,15.97,56.0,high
+Al Reem Island,apartment,3 beds,midtier,181.0,15792.74,2500000.0,4.47,3.62,20.29,19.62,0.9,resilient,4,-0.41,68.16,67.77,0,100.0,22.5,66.34,54.5,high
+Yas Island,apartment,studio,midtier,346.0,16618.57,832830.0,5.63,4.64,29.02,33.28,1.7,resilient,1,24.15,92.04,92.27,0,43.07,44.47,15.97,53.96,high
+Al Saadiyat Island,apartment,studio,midtier,71.0,21909.2,1100000.0,4.53,3.72,9.49,-23.03,1.26,panic distribution,0,31.94,69.4,70.2,100,0.0,7.86,0.0,52.14,medium
