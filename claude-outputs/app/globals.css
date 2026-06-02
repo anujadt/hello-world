@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { background: #0a0a0a; color: #e7e7e7; }
+
+.markdown-body h1 { @apply text-2xl font-bold mt-6 mb-3; }
+.markdown-body h2 { @apply text-xl font-semibold mt-6 mb-2 border-b border-zinc-800 pb-1; }
+.markdown-body h3 { @apply text-base font-semibold mt-4 mb-1 text-zinc-200; }
+.markdown-body p { @apply my-2 leading-relaxed text-zinc-300; }
+.markdown-body ul { @apply list-disc pl-6 my-2 text-zinc-300; }
+.markdown-body ol { @apply list-decimal pl-6 my-2 text-zinc-300; }
+.markdown-body li { @apply my-1; }
+.markdown-body strong { @apply text-zinc-100; }
+.markdown-body em { @apply text-zinc-300; }
+.markdown-body code { @apply bg-zinc-900 border border-zinc-800 px-1 rounded text-xs; }
+.markdown-body pre { @apply bg-zinc-900 border border-zinc-800 p-3 rounded my-3 overflow-x-auto text-xs; }
+.markdown-body pre code { @apply border-0 p-0 bg-transparent; }
+.markdown-body blockquote { @apply border-l-4 border-zinc-700 pl-3 text-zinc-400 my-3; }
+.markdown-body table { @apply w-full text-xs border border-zinc-800 my-3; }
+.markdown-body th { @apply bg-zinc-900 text-left p-2 border-b border-zinc-800 font-semibold; }
+.markdown-body td { @apply p-2 border-b border-zinc-900; }
+.markdown-body a { @apply text-blue-400 underline; }
+.markdown-body hr { @apply border-zinc-800 my-6; }
