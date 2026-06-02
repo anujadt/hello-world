@@ -33,11 +33,42 @@ COLUMN_MAP = {
     "Sale Sequence": "market",
 }
 
-# District label normalization. Maps observed source labels to a single canonical English label.
-# Populated after Phase 0 inspection if needed.
+# District label normalization, populated from Phase 0 findings and confirmed with user.
+# Maps source-of-record DARI label to the canonical marketing-name label used in the freehold whitelist.
 DISTRICT_ALIASES: dict[str, str] = {
-    # "Yas": "Yas Island",  # add aliases here once Phase 0 confirms variants
+    "Al Hidayriyyat": "Hudayriyat Island",
+    "Al Shamkhah":    "Al Shamkha",
+    "Al Rahah":       "Al Raha Beach",
 }
+
+# Project-based district reclassification. Masdar City rows live under District=Khalifa City
+# in the raw export but are economically a separate investment area. Reclassify by project name.
+def reclassify_masdar(df):
+    if "project" not in df.columns:
+        return df
+    mask = df["project"].fillna("").str.contains("Masdar", case=False, na=False)
+    df.loc[mask, "district"] = "Masdar City"
+    return df
+
+# Residential core for pricing. Includes residential complex per user direction
+# (handover bulk transfers are real liquidity events worth keeping).
+RESIDENTIAL_PTYPES = {
+    "apartment",
+    "villa",
+    "townhouse / attached villa",
+    "duplex",
+    "residential complex",
+}
+
+# Commercial scope kept as a parallel cut per user direction (residential AND commercial opportunities).
+COMMERCIAL_PTYPES = {
+    "retail",
+    "office",
+    "mall / market / retail center",
+}
+
+# Excluded from all pricing analyses: court-mandated, gifts (none in this export), plots, agricultural.
+EXCLUDED_DEAL_TYPES = {"court-mandated"}
 
 
 def load_config() -> dict:
