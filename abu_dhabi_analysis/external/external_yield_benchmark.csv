@@ -1,0 +1,17 @@
+district,asset_kind,gross_yield_pct,source,source_url,accessed,year,notes
+Yas Island,apartment,7.1,MPInvestments / Bayut H1 2025,https://www.mpinv.ae/article/abu-dhabi-rental-market-report-2025-yields-trends-and-top-areas-for-landlords,2026-06-02,2025,Vacancy 3.8% (tightest in AD)
+Yas Island,villa,5.5,MPInvestments / Bayut H1 2025,https://www.mpinv.ae/article/abu-dhabi-rental-market-report-2025-yields-trends-and-top-areas-for-landlords,2026-06-02,2025,
+Yas Island,apartment_luxury,7.07,Sands of Wealth 2025,https://sandsofwealth.com/blogs/news/abu-dhabi-rental-yields-apartment,2026-06-02,2025,
+Al Saadiyat Island,apartment,5.5,MPInvestments / Bayut H1 2025,https://www.mpinv.ae/article/abu-dhabi-rental-market-report-2025-yields-trends-and-top-areas-for-landlords,2026-06-02,2025,Range 5-6%
+Al Saadiyat Island,apartment_2bed,2.5,Sands of Wealth 2025,https://sandsofwealth.com/blogs/news/abu-dhabi-rental-yields-apartment,2026-06-02,2025,Gross only; estimated net 0.4% due to high service charges
+Al Reem Island,apartment,7.6,MPInvestments / Bayut H1 2025,https://www.mpinv.ae/article/abu-dhabi-rental-market-report-2025-yields-trends-and-top-areas-for-landlords,2026-06-02,2025,Mid-tier ~7.49%; deeper tenant demand
+Al Reem Island,apartment_midtier,7.49,Sands of Wealth 2025,https://sandsofwealth.com/blogs/news/abu-dhabi-rental-yields-apartment,2026-06-02,2025,Net 5.7-6.6%
+Al Raha Beach,apartment,6.5,Bayut H1 2025 average,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,2025,Estimate from citywide range; specific to be verified
+Al Reef,apartment,7.5,H2O Properties 2025 estimate,https://www.h2o-properties.ae/post/rental-yields-in-abu-dhabi-2025-best-areas-for-high-roi,2026-06-02,2025,Affordable village; higher gross yields typical
+Khalifa City,apartment,7.0,Global Property Guide UAE 2025,https://www.globalpropertyguide.com/middle-east/united-arab-emirates/rental-yields,2026-06-02,2025,Suburban estimate
+Hudayriyat Island,apartment,5.5,No external data yet; estimate from comparable new luxury,n/a,2026-06-02,2025,Inferred from Saadiyat comp; low conviction
+Masdar City,apartment,7.0,H2O Properties 2025,https://www.h2o-properties.ae/post/rental-yields-in-abu-dhabi-2025-best-areas-for-high-roi,2026-06-02,2025,
+Zayed City,apartment,7.0,H2O Properties 2025 estimate,https://www.h2o-properties.ae/post/rental-yields-in-abu-dhabi-2025-best-areas-for-high-roi,2026-06-02,2025,
+Al Maryah Island,apartment,5.5,Bayut 2025 estimate,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,2025,Central business district; mixed-use
+Al Jubail Island,apartment,5.0,n/a,n/a,2026-06-02,2025,Inferred; mostly new villa product
+Fahid Island,apartment,5.0,n/a,n/a,2026-06-02,2025,Inferred; ultra-prime new

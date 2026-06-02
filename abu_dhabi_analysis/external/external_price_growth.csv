@@ -1,0 +1,17 @@
+metric,segment,figure_pct,year,source,source_url,accessed,notes
+total_transactions_yoy,citywide,44,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,AED 142B aggregate transactions
+residential_sales_value_yoy,citywide,67,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,AED 76.1B residential sales
+residential_sales_volume_yoy,citywide,55,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,23600 transactions
+offplan_share_total,citywide,58,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,Up from 49% in 2024
+offplan_share_residential,citywide,71,2025,ADREC 2025 Report,https://abu-dhabi.realestate/blog/abu-dhabi-real-estate-market-report-2025/,2026-06-02,
+cash_share,citywide,87,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,Implies leverage uncommon
+fdi_residential_share,citywide,50,2025,ADREC 2025 Report,https://www.mpinv.ae/article/abu-dhabi-real-estate-market-report-2025-record-aed-142-billion-in-transactions,2026-06-02,Expats crossed 50% for first time
+overall_price_growth_2025,citywide,7,2025,Engel & Volkers / ADREC consensus,https://www.engelvoelkers.com/ae/en/resources/abu-dhabi-property-market,2026-06-02,Range 7-11% reported across sources
+affordable_apartments_yoy,citywide,12,2025,Bayut H1 2025,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,Range 10-13%
+midtier_apartments_yoy,Al Reem Island,19,2025,Bayut / Engel & Volkers,https://www.engelvoelkers.com/ae/en/resources/abu-dhabi-property-market,2026-06-02,Al Reem led mid-tier
+luxury_apartments_yoy,Yas + Saadiyat,27,2025,Bayut H1 2025,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,Disney World announcement catalyst
+hudayriyat_2025_value_bn,Hudayriyat Island,12.5,2025,ADREC 2025 Report,https://abu-dhabi.realestate/blog/abu-dhabi-real-estate-market-report-2025/,2026-06-02,Second-largest residential area
+forecast_2026,citywide,6,2026,Cushman & Wakefield Core,https://www.arabianbusiness.com/real-estate/abu-dhabi-home-prices-tipped-to-rise-16-per-cent-in-2026-as-apartments-set-to-outperform-villas,2026-06-02,5-8% range; moderation from 12-22% prior
+forecast_2026_apartments_high,citywide,16,2026,Arabian Business consensus,https://www.arabianbusiness.com/real-estate/abu-dhabi-home-prices-tipped-to-rise-16-per-cent-in-2026-as-apartments-set-to-outperform-villas,2026-06-02,Apartments to outperform villas
+yas_rents_yoy,Yas Island,15,2025,Bayut Rental Report 2025,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,
+saadiyat_rents_yoy,Al Saadiyat Island,14,2025,Bayut Rental Report 2025,https://www.bayut.com/mybayut/abu-dhabi-rental-market-report-h1-2025/,2026-06-02,
