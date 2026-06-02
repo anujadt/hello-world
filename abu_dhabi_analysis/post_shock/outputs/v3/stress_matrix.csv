@@ -1,0 +1,145 @@
+district,ptype,layout,rent_haircut_pct,vacancy_add_pp,net_yield_pct
+Al Reem Island,apartment,studio,10,0,6.01
+Al Reem Island,apartment,studio,10,5,5.63
+Al Reem Island,apartment,studio,10,10,5.25
+Al Reem Island,apartment,studio,15,0,5.62
+Al Reem Island,apartment,studio,15,5,5.26
+Al Reem Island,apartment,studio,15,10,4.9
+Al Reem Island,apartment,studio,25,0,4.83
+Al Reem Island,apartment,studio,25,5,4.52
+Al Reem Island,apartment,studio,25,10,4.2
+Yas Island,apartment,studio,10,0,6.01
+Yas Island,apartment,studio,10,5,5.64
+Yas Island,apartment,studio,10,10,5.28
+Yas Island,apartment,studio,15,0,5.63
+Yas Island,apartment,studio,15,5,5.28
+Yas Island,apartment,studio,15,10,4.94
+Yas Island,apartment,studio,25,0,4.87
+Yas Island,apartment,studio,25,5,4.56
+Yas Island,apartment,studio,25,10,4.26
+Yas Island,apartment,1 bed,10,0,5.56
+Yas Island,apartment,1 bed,10,5,5.21
+Yas Island,apartment,1 bed,10,10,4.85
+Yas Island,apartment,1 bed,15,0,5.2
+Yas Island,apartment,1 bed,15,5,4.86
+Yas Island,apartment,1 bed,15,10,4.53
+Yas Island,apartment,1 bed,25,0,4.47
+Yas Island,apartment,1 bed,25,5,4.17
+Yas Island,apartment,1 bed,25,10,3.88
+Al Reem Island,apartment,1 bed,10,0,5.44
+Al Reem Island,apartment,1 bed,10,5,5.08
+Al Reem Island,apartment,1 bed,10,10,4.72
+Al Reem Island,apartment,1 bed,15,0,5.07
+Al Reem Island,apartment,1 bed,15,5,4.73
+Al Reem Island,apartment,1 bed,15,10,4.39
+Al Reem Island,apartment,1 bed,25,0,4.32
+Al Reem Island,apartment,1 bed,25,5,4.02
+Al Reem Island,apartment,1 bed,25,10,3.72
+Al Reem Island,apartment,2 beds,10,0,5.38
+Al Reem Island,apartment,2 beds,10,5,5.05
+Al Reem Island,apartment,2 beds,10,10,4.71
+Al Reem Island,apartment,2 beds,15,0,5.04
+Al Reem Island,apartment,2 beds,15,5,4.72
+Al Reem Island,apartment,2 beds,15,10,4.4
+Al Reem Island,apartment,2 beds,25,0,4.34
+Al Reem Island,apartment,2 beds,25,5,4.06
+Al Reem Island,apartment,2 beds,25,10,3.78
+Al Reef,apartment,2 beds,10,0,5.32
+Al Reef,apartment,2 beds,10,5,4.97
+Al Reef,apartment,2 beds,10,10,4.63
+Al Reef,apartment,2 beds,15,0,4.96
+Al Reef,apartment,2 beds,15,5,4.64
+Al Reef,apartment,2 beds,15,10,4.31
+Al Reef,apartment,2 beds,25,0,4.25
+Al Reef,apartment,2 beds,25,5,3.96
+Al Reef,apartment,2 beds,25,10,3.67
+Yas Island,apartment,2 beds,10,0,5.3
+Yas Island,apartment,2 beds,10,5,4.97
+Yas Island,apartment,2 beds,10,10,4.63
+Yas Island,apartment,2 beds,15,0,4.96
+Yas Island,apartment,2 beds,15,5,4.64
+Yas Island,apartment,2 beds,15,10,4.33
+Yas Island,apartment,2 beds,25,0,4.27
+Yas Island,apartment,2 beds,25,5,3.99
+Yas Island,apartment,2 beds,25,10,3.71
+Al Raha Beach,apartment,1 bed,10,0,5.0
+Al Raha Beach,apartment,1 bed,10,5,4.67
+Al Raha Beach,apartment,1 bed,10,10,4.34
+Al Raha Beach,apartment,1 bed,15,0,4.66
+Al Raha Beach,apartment,1 bed,15,5,4.35
+Al Raha Beach,apartment,1 bed,15,10,4.04
+Al Raha Beach,apartment,1 bed,25,0,3.99
+Al Raha Beach,apartment,1 bed,25,5,3.71
+Al Raha Beach,apartment,1 bed,25,10,3.44
+Al Raha Beach,apartment,2 beds,10,0,4.68
+Al Raha Beach,apartment,2 beds,10,5,4.37
+Al Raha Beach,apartment,2 beds,10,10,4.07
+Al Raha Beach,apartment,2 beds,15,0,4.36
+Al Raha Beach,apartment,2 beds,15,5,4.07
+Al Raha Beach,apartment,2 beds,15,10,3.78
+Al Raha Beach,apartment,2 beds,25,0,3.73
+Al Raha Beach,apartment,2 beds,25,5,3.47
+Al Raha Beach,apartment,2 beds,25,10,3.22
+Al Reem Island,apartment,3 beds,10,0,4.58
+Al Reem Island,apartment,3 beds,10,5,4.28
+Al Reem Island,apartment,3 beds,10,10,3.98
+Al Reem Island,apartment,3 beds,15,0,4.27
+Al Reem Island,apartment,3 beds,15,5,3.98
+Al Reem Island,apartment,3 beds,15,10,3.7
+Al Reem Island,apartment,3 beds,25,0,3.64
+Al Reem Island,apartment,3 beds,25,5,3.39
+Al Reem Island,apartment,3 beds,25,10,3.14
+Al Saadiyat Island,apartment,1 bed,10,0,4.3
+Al Saadiyat Island,apartment,1 bed,10,5,4.01
+Al Saadiyat Island,apartment,1 bed,10,10,3.73
+Al Saadiyat Island,apartment,1 bed,15,0,4.0
+Al Saadiyat Island,apartment,1 bed,15,5,3.73
+Al Saadiyat Island,apartment,1 bed,15,10,3.46
+Al Saadiyat Island,apartment,1 bed,25,0,3.41
+Al Saadiyat Island,apartment,1 bed,25,5,3.17
+Al Saadiyat Island,apartment,1 bed,25,10,2.93
+Al Raha Beach,apartment,3 beds,10,0,4.05
+Al Raha Beach,apartment,3 beds,10,5,3.77
+Al Raha Beach,apartment,3 beds,10,10,3.49
+Al Raha Beach,apartment,3 beds,15,0,3.76
+Al Raha Beach,apartment,3 beds,15,5,3.5
+Al Raha Beach,apartment,3 beds,15,10,3.23
+Al Raha Beach,apartment,3 beds,25,0,3.19
+Al Raha Beach,apartment,3 beds,25,5,2.95
+Al Raha Beach,apartment,3 beds,25,10,2.72
+Al Maryah Island,apartment,studio,10,0,3.76
+Al Maryah Island,apartment,studio,10,5,3.49
+Al Maryah Island,apartment,studio,10,10,3.22
+Al Maryah Island,apartment,studio,15,0,3.48
+Al Maryah Island,apartment,studio,15,5,3.23
+Al Maryah Island,apartment,studio,15,10,2.97
+Al Maryah Island,apartment,studio,25,0,2.92
+Al Maryah Island,apartment,studio,25,5,2.7
+Al Maryah Island,apartment,studio,25,10,2.47
+Yas Island,villa,4 beds,10,0,3.62
+Yas Island,villa,4 beds,10,5,3.36
+Yas Island,villa,4 beds,10,10,3.1
+Yas Island,villa,4 beds,15,0,3.35
+Yas Island,villa,4 beds,15,5,3.11
+Yas Island,villa,4 beds,15,10,2.87
+Yas Island,villa,4 beds,25,0,2.82
+Yas Island,villa,4 beds,25,5,2.6
+Yas Island,villa,4 beds,25,10,2.39
+Al Jubail Island,villa,4 beds,10,0,3.04
+Al Jubail Island,villa,4 beds,10,5,2.81
+Al Jubail Island,villa,4 beds,10,10,2.59
+Al Jubail Island,villa,4 beds,15,0,2.81
+Al Jubail Island,villa,4 beds,15,5,2.59
+Al Jubail Island,villa,4 beds,15,10,2.38
+Al Jubail Island,villa,4 beds,25,0,2.34
+Al Jubail Island,villa,4 beds,25,5,2.15
+Al Jubail Island,villa,4 beds,25,10,1.96
+Al Saadiyat Island,apartment,2 beds,10,0,1.38
+Al Saadiyat Island,apartment,2 beds,10,5,1.26
+Al Saadiyat Island,apartment,2 beds,10,10,1.14
+Al Saadiyat Island,apartment,2 beds,15,0,1.26
+Al Saadiyat Island,apartment,2 beds,15,5,1.14
+Al Saadiyat Island,apartment,2 beds,15,10,1.02
+Al Saadiyat Island,apartment,2 beds,25,0,1.0
+Al Saadiyat Island,apartment,2 beds,25,5,0.9
+Al Saadiyat Island,apartment,2 beds,25,10,0.8
