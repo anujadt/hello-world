@@ -1,6 +1,14 @@
 // Password verification and signed-cookie session.
-// PBKDF2-SHA256 hash of the site password is embedded here as a constant.
-// Repo must remain PRIVATE; treat these constants as secrets that gate everything.
+//
+// Secrets resolve in this order:
+//   1. SITE_PASSWORD env var (plaintext). If set, its PBKDF2 hash is used for verification.
+//   2. PBKDF2_HASH_HEX constant below (build-time hash of the original password).
+//
+// SITE_SECRET env var overrides SIGNING_SECRET_HEX for session cookie signing.
+//
+// If the repo is PUBLIC, you MUST set SITE_PASSWORD and SITE_SECRET in Vercel env vars,
+// otherwise the password hash and signing secret are readable in source.
+// If the repo is PRIVATE, the in-source constants are acceptable and no env vars are needed.
 
 const PBKDF2_ITERATIONS = 210_000;
 const PBKDF2_SALT_HEX = "e9f7c3116538b0777f3becf20dcd4c1c";
@@ -8,7 +16,7 @@ const PBKDF2_HASH_HEX = "09dc71d8ac6acf12ec52aa1cc1074235a1a94d35901d75e2ebd3b9d
 const SIGNING_SECRET_HEX = "cb54244d895ea5346095d520d40223c22d627e4b583981d2b75e4cf08761619c";
 
 export const COOKIE_NAME = "cdo-auth";
-export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
+export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 
 function hexToBytes(hex: string): Uint8Array {
   const out = new Uint8Array(hex.length / 2);
@@ -31,7 +39,6 @@ function base64UrlDecode(s: string): Uint8Array {
   return out;
 }
 
-// Constant-time byte comparison.
 function timingSafeEqual(a: Uint8Array, b: Uint8Array): boolean {
   if (a.length !== b.length) return false;
   let diff = 0;
@@ -39,35 +46,58 @@ function timingSafeEqual(a: Uint8Array, b: Uint8Array): boolean {
   return diff === 0;
 }
 
+async function pbkdf2Bits(password: string, saltBytes: Uint8Array): Promise<Uint8Array> {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    { name: "PBKDF2" },
+    false,
+    ["deriveBits"],
+  );
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", hash: "SHA-256", salt: saltBytes, iterations: PBKDF2_ITERATIONS },
+    key,
+    32 * 8,
+  );
+  return new Uint8Array(bits);
+}
+
+// Cache the env-derived hash; only recompute if SITE_PASSWORD value changes.
+let envHashCache: Uint8Array | null = null;
+let envHashCachedFor: string | null = null;
+
+async function expectedHash(): Promise<Uint8Array> {
+  const envPw = process.env.SITE_PASSWORD;
+  if (envPw && envPw.length > 0) {
+    if (envHashCache && envHashCachedFor === envPw) return envHashCache;
+    envHashCache = await pbkdf2Bits(envPw, hexToBytes(PBKDF2_SALT_HEX));
+    envHashCachedFor = envPw;
+    return envHashCache;
+  }
+  return hexToBytes(PBKDF2_HASH_HEX);
+}
+
+function signingKeyBytes(): Uint8Array {
+  const envSecret = process.env.SITE_SECRET;
+  if (envSecret && /^[0-9a-fA-F]{32,}$/.test(envSecret)) return hexToBytes(envSecret);
+  return hexToBytes(SIGNING_SECRET_HEX);
+}
+
 export async function verifyPassword(submitted: string): Promise<boolean> {
   if (typeof submitted !== "string" || submitted.length === 0 || submitted.length > 256) {
     return false;
   }
-  const enc = new TextEncoder().encode(submitted);
-  const key = await crypto.subtle.importKey("raw", enc, { name: "PBKDF2" }, false, ["deriveBits"]);
-  const derivedBuf = await crypto.subtle.deriveBits(
-    {
-      name: "PBKDF2",
-      hash: "SHA-256",
-      salt: hexToBytes(PBKDF2_SALT_HEX),
-      iterations: PBKDF2_ITERATIONS,
-    },
-    key,
-    32 * 8,
-  );
-  const derived = new Uint8Array(derivedBuf);
-  return timingSafeEqual(derived, hexToBytes(PBKDF2_HASH_HEX));
+  const derived = await pbkdf2Bits(submitted, hexToBytes(PBKDF2_SALT_HEX));
+  const expected = await expectedHash();
+  return timingSafeEqual(derived, expected);
 }
 
-// Signed session token. Payload is base64url(JSON), signature is HMAC-SHA256(payload, secret).
-// Cookie value: <payload>.<sig>
 export async function signSession(payload: object): Promise<string> {
   const payloadJson = JSON.stringify(payload);
-  const payloadBytes = new TextEncoder().encode(payloadJson);
-  const payloadB64 = base64UrlEncode(payloadBytes);
+  const payloadB64 = base64UrlEncode(new TextEncoder().encode(payloadJson));
   const key = await crypto.subtle.importKey(
     "raw",
-    hexToBytes(SIGNING_SECRET_HEX),
+    signingKeyBytes(),
     { name: "HMAC", hash: "SHA-256" },
     false,
     ["sign"],
@@ -86,7 +116,7 @@ export async function verifySession(token: string | undefined): Promise<boolean>
   try {
     const key = await crypto.subtle.importKey(
       "raw",
-      hexToBytes(SIGNING_SECRET_HEX),
+      signingKeyBytes(),
       { name: "HMAC", hash: "SHA-256" },
       false,
       ["verify"],

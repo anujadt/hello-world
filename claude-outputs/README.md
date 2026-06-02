@@ -24,7 +24,7 @@ The combination of strong password + PBKDF2 + 300 ms delay makes brute-force imp
 
 ## Stack
 
-- Next.js 15 (App Router) + React 19
+- Next.js 14 (App Router) + React 18
 - Tailwind CSS
 - TypeScript
 - react-markdown for the memo, csv-parse for tables
@@ -42,6 +42,24 @@ Then visit http://localhost:3000 and enter the password.
 
 ## Deploy
 
-Push to GitHub and connect to Vercel (or use the Vercel CLI / MCP tool).
-No environment variables required: everything needed to gate the site is in source code, which
-is fine because the repo is private.
+This app lives at `claude-outputs/` inside the `anujadt/hello-world` repo on the `dashboard` branch.
+
+In Vercel:
+
+1. New Project, import `anujadt/hello-world`.
+2. Production Branch: `dashboard` (set in Project Settings > Git after first import if needed).
+3. Root Directory: `claude-outputs`.
+4. Framework Preset: Next.js (auto-detected).
+5. Deploy.
+
+### Important security note
+
+The password hash and session-signing secret live in `lib/auth.ts` as constants. That is only
+safe if the repo is **private**. Two options:
+
+- **Option A (recommended)**: keep `anujadt/hello-world` private. No env vars needed.
+- **Option B**: set `SITE_PASSWORD` (plaintext) and `SITE_SECRET` (32+ byte hex) as Vercel env
+  vars. The app prefers env vars over the in-source constants when present, so this is safe even
+  if the repo is public.
+
+See `.env.example` for variable names.
