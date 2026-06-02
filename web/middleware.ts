@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE_NAME, isProjectUnlocked, readSession } from "@/lib/auth";
-import { pickProjectForPath } from "@/lib/projects";
+import { COOKIE_NAME, isProjectUnlocked, readSession } from "./lib/auth";
+import { pickProjectForPath } from "./lib/projects";
 
 // Run on every path except the login flow and static assets.
 export const config = {
