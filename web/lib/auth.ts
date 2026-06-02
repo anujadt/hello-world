@@ -56,26 +56,28 @@ async function pbkdf2Bits(
   return new Uint8Array(bits);
 }
 
-// All projects share one signed cookie, so they share one signing key. We pick the first
-// protected project's secret (env-overridable). For public-only deployments, sessions are
-// unused, so the placeholder key never matters.
+// All projects share one signed cookie, so one signing key. Edge runtime requires LITERAL
+// process.env access (it inlines at build time), so we look up SITE_SECRET / RE_SECRET by name.
 function signingKeyBytes(): Uint8Array {
-  const firstProtected = PROJECTS.find((p) => p.status === "protected");
-  if (!firstProtected || !firstProtected.auth) {
-    return new TextEncoder().encode("placeholder-signing-key-must-not-be-used".padEnd(32, "0"));
-  }
-  const envName = `${firstProtected.envVarPrefix ?? ""}SECRET`;
-  const env = process.env[envName];
+  const env = process.env.SITE_SECRET || process.env.RE_SECRET;
   if (env && /^[0-9a-fA-F]{32,}$/.test(env)) return hexToBytes(env);
-  return hexToBytes(firstProtected.auth.signingSecretHex);
+  const firstProtected = PROJECTS.find((p) => p.status === "protected");
+  if (firstProtected?.auth) return hexToBytes(firstProtected.auth.signingSecretHex);
+  return new TextEncoder().encode("placeholder-signing-key-must-not-be-used".padEnd(32, "0"));
 }
 
 const envHashCache = new Map<string, { for: string; bytes: Uint8Array }>();
 
+// Static env var lookup per project slug. Edge runtime cannot inline dynamic
+// process.env[var] access, so each protected project has its case here.
+function envPasswordFor(slug: string): string | undefined {
+  if (slug === "real-estate") return process.env.RE_PASSWORD;
+  return undefined;
+}
+
 async function expectedHashForProject(project: Project): Promise<Uint8Array> {
   if (!project.auth) throw new Error(`Project ${project.slug} has no auth config`);
-  const envName = `${project.envVarPrefix ?? ""}PASSWORD`;
-  const envPw = process.env[envName];
+  const envPw = envPasswordFor(project.slug);
   if (envPw && envPw.length > 0) {
     const cached = envHashCache.get(project.slug);
     if (cached && cached.for === envPw) return cached.bytes;
