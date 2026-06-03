@@ -1,0 +1,54 @@
+district,ptype,layout,n_pre,n_post,vol_ratio,vol_ratio_ci_lo,vol_ratio_ci_hi,vol_ci_excludes_one
+Al Jubail Island,villa,4 beds,60,18,2.19,1.41,3.41,True
+Al Maryah Island,apartment,1 bed,144,18,0.91,0.6,1.38,False
+Al Maryah Island,apartment,3 beds,57,8,1.02,0.55,1.91,False
+Al Maryah Island,apartment,studio,378,8,0.15,0.09,0.28,True
+Al Raha Beach,apartment,1 bed,158,100,4.62,3.74,5.7,True
+Al Raha Beach,apartment,2 beds,355,66,1.36,1.09,1.69,True
+Al Raha Beach,apartment,3 beds,151,20,0.97,0.65,1.43,False
+Al Raha Beach,apartment,4 beds,13,8,4.49,2.14,9.4,True
+Al Raha Beach,apartment,studio,29,15,3.77,2.24,6.37,True
+Al Raha Beach,duplex,1 bed,15,16,7.78,4.31,14.06,True
+Al Raha Beach,duplex,2 beds,21,8,2.78,1.4,5.51,True
+Al Raha Beach,duplex,3 beds,24,11,3.34,1.84,6.09,True
+Al Reef,apartment,2 beds,149,9,0.44,0.25,0.78,True
+Al Reef,townhouse / attached villa,2 beds,94,9,0.7,0.39,1.24,False
+Al Reef,townhouse / attached villa,3 beds,53,8,1.1,0.59,2.06,False
+Al Reem Island,apartment,1 bed,2264,438,1.41,1.3,1.54,True
+Al Reem Island,apartment,2 beds,2016,445,1.61,1.48,1.76,True
+Al Reem Island,apartment,3 beds,770,91,0.86,0.72,1.03,False
+Al Reem Island,apartment,4 beds,171,9,0.38,0.22,0.67,True
+Al Reem Island,apartment,studio,705,172,1.78,1.55,2.05,True
+Al Saadiyat Island,apartment,1 bed,647,99,1.12,0.93,1.33,False
+Al Saadiyat Island,apartment,2 beds,701,110,1.14,0.97,1.36,False
+Al Saadiyat Island,apartment,3 beds,316,27,0.62,0.45,0.87,True
+Al Saadiyat Island,apartment,studio,216,36,1.22,0.9,1.64,False
+Al Saadiyat Island,villa,4 beds,76,19,1.82,1.2,2.78,True
+Al Saadiyat Island,villa,5 beds,85,27,2.32,1.61,3.33,True
+Al Shamkha,apartment,1 bed,116,19,1.2,0.8,1.8,False
+Al Shamkha,apartment,2 beds,87,22,1.84,1.25,2.73,True
+Al Shamkha,apartment,studio,97,72,5.42,4.19,6.99,True
+Fahid Island,apartment,1 bed,401,21,0.38,0.26,0.55,True
+Fahid Island,apartment,2 beds,312,30,0.7,0.51,0.96,True
+Fahid Island,apartment,3 beds,166,17,0.75,0.49,1.14,False
+Ghantout,villa,3 beds,212,8,0.28,0.15,0.5,True
+Ghantout,villa,4 beds,252,8,0.23,0.13,0.42,True
+Hudayriyat Island,apartment,1 bed,57,118,15.1,11.58,19.69,True
+Hudayriyat Island,apartment,2 beds,112,160,10.42,8.51,12.76,True
+Hudayriyat Island,apartment,3 beds,42,78,13.55,9.89,18.56,True
+Hudayriyat Island,villa,4 beds,430,57,0.97,0.77,1.22,False
+Hudayriyat Island,villa,5 beds,374,85,1.66,1.36,2.02,True
+Yas Island,apartment,1 bed,1159,392,2.47,2.24,2.72,True
+Yas Island,apartment,2 beds,1092,185,1.24,1.08,1.41,True
+Yas Island,apartment,3 beds,354,41,0.85,0.64,1.11,False
+Yas Island,apartment,studio,782,197,1.84,1.61,2.1,True
+Yas Island,townhouse / attached villa,2 beds,63,9,1.04,0.58,1.87,False
+Yas Island,townhouse / attached villa,3 beds,91,14,1.12,0.7,1.8,False
+Yas Island,villa,4 beds,93,17,1.33,0.86,2.06,False
+Yas Island,villa,5 beds,63,9,1.04,0.58,1.87,False
+Zayed City,apartment,1 bed,112,9,0.59,0.33,1.04,False
+Zayed City,apartment,2 beds,165,8,0.35,0.2,0.64,True
+Zayed City,townhouse / attached villa,2 beds,203,24,0.86,0.6,1.23,False
+Zayed City,townhouse / attached villa,3 beds,236,19,0.59,0.4,0.87,True
+Zayed City,villa,3 beds,61,50,5.98,4.37,8.18,True
+Zayed City,villa,4 beds,44,26,4.31,2.87,6.48,True
