@@ -1,0 +1,5 @@
+# Parquets are regenerable from the pipeline; don't bloat git history.
+# Run `python3 scripts/phase1_clean.py` to regenerate.
+outputs/*.parquet
+__pycache__/
+*.pyc

@@ -1,0 +1,5 @@
+district,ptype,layout,fit_slope_aed_per_q,fit_intercept,projected_2026Q1,actual_2026Q1,deviation_Q1_pct,projected_2026Q2,actual_2026Q2,deviation_Q2_pct
+Al Reem Island,apartment,2 beds,697.0,10620.0,14107.0,14035.0,-0.5,14804.0,13679.0,-7.6
+Al Reem Island,apartment,1 bed,880.0,9932.0,14333.0,14652.0,2.2,15214.0,14720.0,-3.2
+Al Reem Island,apartment,3 beds,683.0,11062.0,14479.0,14081.0,-2.7,15163.0,16620.0,9.6
+Yas Island,apartment,2 beds,1359.0,13048.0,19843.0,20158.0,1.6,21203.0,18593.0,-12.3
