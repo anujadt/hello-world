@@ -12,9 +12,13 @@ type Entry = {
   lockedUntil: number;
 };
 
-const WINDOW_MS = 15 * 60 * 1000;       // 15 minutes
-const MAX_ATTEMPTS_IN_WINDOW = 10;       // after the 10th failure, lock
-const LOCK_MS = 60 * 60 * 1000;          // 1 hour lockout
+// Tuned to be gracious for a human who typos, but still throttle a script.
+// The 300ms per-attempt server delay plus PBKDF2 cost is the real brute-force
+// brake; the lockout is a backstop, deliberately short so a frustrated human is
+// never stuck for long.
+const WINDOW_MS = 10 * 60 * 1000;       // 10 minutes
+const MAX_ATTEMPTS_IN_WINDOW = 12;       // after the 12th failure in the window, pause
+const LOCK_MS = 5 * 60 * 1000;           // 5 minute pause (was 1 hour)
 const MIN_DELAY_MS = 300;                // every attempt waits at least this long
 
 const store = new Map<string, Entry>();

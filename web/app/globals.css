@@ -4,6 +4,18 @@
 
 html, body { background: #0a0a0a; color: #e7e7e7; }
 
+/* Login shake feedback. Global (not styled-jsx) so the keyframe name resolves. */
+@keyframes cdo-shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-8px); }
+  30%  { transform: translateX(7px); }
+  45%  { transform: translateX(-5px); }
+  60%  { transform: translateX(4px); }
+  75%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+.cdo-shake { animation: cdo-shake 380ms ease-out; }
+
 .markdown-body h1 { @apply text-2xl font-bold mt-6 mb-3; }
 .markdown-body h2 { @apply text-xl font-semibold mt-6 mb-2 border-b border-zinc-800 pb-1; }
 .markdown-body h3 { @apply text-base font-semibold mt-4 mb-1 text-zinc-200; }

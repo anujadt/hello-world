@@ -68,49 +68,51 @@ function signingKeyBytes(): Uint8Array {
 
 const envHashCache = new Map<string, { for: string; bytes: Uint8Array }>();
 
-// Static env var lookup per project slug. Edge runtime cannot inline dynamic
-// process.env[var] access, so each protected project has its case here.
+// Optional env-var password override per project. Edge runtime cannot inline
+// dynamic process.env[var] access, so each project has its case here.
 //
-// Two env var names are supported for each project:
-//   <PREFIX>PASSWORD     plaintext (works fine if no $ in your password)
-//   <PREFIX>PASSWORD_B64 base64 of the plaintext (use this if your password has
-//                       characters Vercel mangles, e.g. $ being interpreted as
-//                       a variable reference by the .env importer)
-// The B64 variant wins if both are set.
+// ONLY the base64 variant is honored: <PREFIX>PASSWORD_B64. We deliberately do
+// NOT read a plaintext <PREFIX>PASSWORD env var, because Vercel's .env importer
+// mangles characters like `$` (interpreting them as variable references), which
+// silently corrupts the stored password and locks you out. Base64 is immune.
+//
+// CRITICAL: the env override is ADDITIVE, never a replacement. The embedded
+// in-source hash is always an accepted password too, so a misconfigured env var
+// can never lock you out. (For a public repo, the in-source hash is PBKDF2-210k
+// of a 29-char password and not brute-forceable; the real secret to protect is
+// the cookie signing key via SITE_SECRET.)
 function decodeMaybeB64(v: string | undefined): string | undefined {
   if (!v) return undefined;
   try {
-    return atob(v);
+    const out = atob(v);
+    return out.length > 0 ? out : undefined;
   } catch {
     return undefined;
   }
 }
 
-function envPasswordFor(slug: string): string | undefined {
-  if (slug === "real-estate") {
-    const b64 = decodeMaybeB64(process.env.RE_PASSWORD_B64);
-    if (b64 && b64.length > 0) return b64;
-    const plain = process.env.RE_PASSWORD;
-    if (plain && plain.length > 0) return plain;
-  }
+function envPasswordB64For(slug: string): string | undefined {
+  if (slug === "real-estate") return decodeMaybeB64(process.env.RE_PASSWORD_B64);
   return undefined;
 }
 
-async function expectedHashForProject(project: Project): Promise<Uint8Array> {
+// Returns every hash a submitted password may validly match against:
+// always the embedded hash, plus the env-B64-derived hash if one is configured.
+async function acceptedHashesForProject(project: Project): Promise<Uint8Array[]> {
   if (!project.auth) throw new Error(`Project ${project.slug} has no auth config`);
-  const envPw = envPasswordFor(project.slug);
+  const hashes: Uint8Array[] = [hexToBytes(project.auth.hashHex)];
+  const envPw = envPasswordB64For(project.slug);
   if (envPw && envPw.length > 0) {
     const cached = envHashCache.get(project.slug);
-    if (cached && cached.for === envPw) return cached.bytes;
-    const bytes = await pbkdf2Bits(
-      envPw,
-      hexToBytes(project.auth.saltHex),
-      project.auth.iterations,
-    );
-    envHashCache.set(project.slug, { for: envPw, bytes });
-    return bytes;
+    if (cached && cached.for === envPw) {
+      hashes.push(cached.bytes);
+    } else {
+      const bytes = await pbkdf2Bits(envPw, hexToBytes(project.auth.saltHex), project.auth.iterations);
+      envHashCache.set(project.slug, { for: envPw, bytes });
+      hashes.push(bytes);
+    }
   }
-  return hexToBytes(project.auth.hashHex);
+  return hashes;
 }
 
 export async function verifyPasswordForProject(slug: string, submitted: string): Promise<boolean> {
@@ -122,8 +124,13 @@ export async function verifyPasswordForProject(slug: string, submitted: string):
     hexToBytes(project.auth.saltHex),
     project.auth.iterations,
   );
-  const expected = await expectedHashForProject(project);
-  return timingSafeEqual(derived, expected);
+  const accepted = await acceptedHashesForProject(project);
+  // Check all candidates (constant-time per candidate); accept if any matches.
+  let ok = false;
+  for (const h of accepted) {
+    if (timingSafeEqual(derived, h)) ok = true;
+  }
+  return ok;
 }
 
 export type SessionPayload = { exp: number; unlocked: string[] };

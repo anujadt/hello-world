@@ -14,8 +14,8 @@ function LoginForm() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [shake, setShake] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
-  const [locked, setLocked] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [lockedFor, setLockedFor] = useState(0); // seconds; only set on a real lockout (429)
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -26,21 +26,16 @@ function LoginForm() {
       .catch(() => undefined);
   }, [slug]);
 
-  // Cooldown tick.
+  // Lockout countdown tick (only runs when actually locked out).
   useEffect(() => {
-    if (cooldown <= 0) return;
-    const id = setInterval(() => setCooldown((c) => Math.max(0, c - 1)), 1000);
+    if (lockedFor <= 0) return;
+    const id = setInterval(() => setLockedFor((c) => Math.max(0, c - 1)), 1000);
     return () => clearInterval(id);
-  }, [cooldown]);
-
-  // When cooldown finishes after a lockout, allow retry by clearing the locked flag.
-  useEffect(() => {
-    if (locked && cooldown === 0) setLocked(false);
-  }, [cooldown, locked]);
+  }, [lockedFor]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (busy || locked || cooldown > 0) return;
+    if (busy || lockedFor > 0 || pw.length === 0) return;
     setBusy(true);
     setErr(null);
     try {
@@ -55,46 +50,52 @@ function LoginForm() {
       }
       const j = (await r.json().catch(() => ({}))) as {
         error?: string;
-        backoffSeconds?: number;
         retryAfterSeconds?: number;
       };
+      const nextAttempts = attempts + 1;
+      setAttempts(nextAttempts);
+
       if (r.status === 429) {
-        // Locked out for a longer window.
+        // Genuine lockout: honor the server's wait window.
         const wait = j.retryAfterSeconds ?? 3600;
-        setLocked(true);
-        setCooldown(wait);
-        setErr(j.error ?? "Too many attempts. Try again later.");
+        setLockedFor(wait);
+        setErr(j.error ?? "Too many attempts. Take a short break and try again.");
       } else {
-        setErr(j.error ?? "That password did not work.");
-        setCooldown(j.backoffSeconds ?? 1);
+        // Plain wrong password: friendly, immediate retry allowed. Nudge after a few misses.
+        const base = "That password did not work.";
+        const hint =
+          nextAttempts >= 3
+            ? " Double-check for stray spaces or a missed character; the field is case-sensitive."
+            : "";
+        setErr(base + hint);
       }
+      // Shake + clear + refocus, but do NOT force a wait for a simple typo.
       setShake(true);
-      setTimeout(() => setShake(false), 380);
+      setTimeout(() => setShake(false), 400);
       setPw("");
       requestAnimationFrame(() => inputRef.current?.focus());
     } catch {
-      setErr("Network hiccup. Try again in a moment.");
+      setErr("Network hiccup. Give it a moment and try again.");
     } finally {
       setBusy(false);
     }
   }
 
   const title = project?.title ?? (slug || "Locked");
-  const disabled = busy || pw.length === 0 || !slug || locked || cooldown > 0;
+  const locked = lockedFor > 0;
+  const disabled = busy || pw.length === 0 || !slug || locked;
   const buttonLabel = locked
-    ? `Locked, retry in ${formatDuration(cooldown)}`
-    : cooldown > 0
-      ? `Wait ${cooldown}s`
-      : busy
-        ? "Verifying..."
-        : "Enter";
+    ? `Locked, retry in ${formatDuration(lockedFor)}`
+    : busy
+      ? "Checking..."
+      : "Enter";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100 p-6">
       <form
         onSubmit={onSubmit}
-        className={`w-full max-w-sm space-y-4 bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl transition-transform ${
-          shake ? "animate-[shake_360ms_ease-out]" : ""
+        className={`w-full max-w-sm space-y-4 bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl ${
+          shake ? "cdo-shake" : ""
         }`}
       >
         <div>
@@ -108,9 +109,12 @@ function LoginForm() {
           autoFocus
           autoComplete="current-password"
           value={pw}
-          onChange={(e) => setPw(e.target.value)}
+          onChange={(e) => {
+            setPw(e.target.value);
+            if (err) setErr(null);
+          }}
           disabled={locked}
-          className={`w-full px-3 py-2 rounded-md bg-zinc-950 border focus:outline-none ${
+          className={`w-full px-3 py-2 rounded-md bg-zinc-950 border focus:outline-none transition-colors ${
             err ? "border-amber-700/60 focus:border-amber-600" : "border-zinc-800 focus:border-zinc-600"
           } ${locked ? "opacity-50 cursor-not-allowed" : ""}`}
           placeholder="Password"
@@ -128,24 +132,13 @@ function LoginForm() {
           {buttonLabel}
         </button>
         <p className="text-xs text-zinc-500">
-          Rate-limited. 10 failed attempts in 15 minutes locks this IP for 60 minutes.
+          You can retry immediately. After 10 rapid failed attempts this IP pauses for a while as a
+          brute-force guard.
         </p>
         <p className="text-xs text-zinc-600">
           <a href="/" className="hover:text-zinc-400">Back to projects</a>
         </p>
       </form>
-
-      <style jsx>{`
-        @keyframes shake {
-          0%   { transform: translateX(0); }
-          15%  { transform: translateX(-8px); }
-          30%  { transform: translateX(7px); }
-          45%  { transform: translateX(-5px); }
-          60%  { transform: translateX(4px); }
-          75%  { transform: translateX(-2px); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
     </div>
   );
 }
