@@ -37,6 +37,28 @@ log you into others.
 Next.js 14 App Router, React 18, Tailwind, TypeScript, react-markdown, csv-parse, Web Crypto
 (PBKDF2 + HMAC) in middleware and API routes.
 
+## Security model
+
+The repo is currently **public**. The PBKDF2 hash and HMAC signing secret in
+`lib/auth.ts` are therefore visible. To prevent forged session cookies, set
+env vars in Vercel (Settings -> Environment Variables) that override the
+in-source values:
+
+- `RE_PASSWORD_B64`: base64-encoded password for the real-estate project.
+  Base64 is used because Vercel's .env importer mangles `$` characters.
+  Generate: `python3 -c "import base64; print(base64.b64encode(b'YOUR_PASSWORD').decode())"`.
+  If your password has no `$`, you can use `RE_PASSWORD` (plaintext) instead.
+- `SITE_SECRET`: 32-byte hex for HMAC cookie signing.
+  Generate: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+
+After setting both, redeploy in Vercel. The code prefers env vars over the
+in-source constants when set. To remove the in-source fallback entirely
+(belt and braces), make the repo private.
+
+The `/data/<slug>/*` URLs are gated by the same project auth as the owning
+`/<slug>` route (since v5). Curl access to raw CSVs/markdown without a valid
+session cookie returns a redirect to /login.
+
 ## Run locally
 
 ```bash

@@ -70,8 +70,29 @@ const envHashCache = new Map<string, { for: string; bytes: Uint8Array }>();
 
 // Static env var lookup per project slug. Edge runtime cannot inline dynamic
 // process.env[var] access, so each protected project has its case here.
-// TEMPORARILY DISABLED: forcing embedded hash to debug a Vercel env-var mangling issue.
-function envPasswordFor(_slug: string): string | undefined {
+//
+// Two env var names are supported for each project:
+//   <PREFIX>PASSWORD     plaintext (works fine if no $ in your password)
+//   <PREFIX>PASSWORD_B64 base64 of the plaintext (use this if your password has
+//                       characters Vercel mangles, e.g. $ being interpreted as
+//                       a variable reference by the .env importer)
+// The B64 variant wins if both are set.
+function decodeMaybeB64(v: string | undefined): string | undefined {
+  if (!v) return undefined;
+  try {
+    return atob(v);
+  } catch {
+    return undefined;
+  }
+}
+
+function envPasswordFor(slug: string): string | undefined {
+  if (slug === "real-estate") {
+    const b64 = decodeMaybeB64(process.env.RE_PASSWORD_B64);
+    if (b64 && b64.length > 0) return b64;
+    const plain = process.env.RE_PASSWORD;
+    if (plain && plain.length > 0) return plain;
+  }
   return undefined;
 }
 
