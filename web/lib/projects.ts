@@ -44,7 +44,7 @@ export const PROJECTS: Project[] = [
     slug: "real-estate",
     title: "Abu Dhabi Real Estate Investor Memo",
     blurb:
-      "Investor-grade analysis of the Abu Dhabi residential market built from 114k DARI transactions, triangulated against ADREC, Bayut, and Cushman published reports.",
+      "Abu Dhabi residential market analysis built from 114k DARI transactions plus a post-event opportunity scan (Feb 27, 2026 pivot, lag-corrected) ranking freehold-zone yield entries against published ADREC, Bayut, and Cushman benchmarks.",
     tags: ["data", "finance", "real estate"],
     status: "protected",
     envVarPrefix: "RE_",
