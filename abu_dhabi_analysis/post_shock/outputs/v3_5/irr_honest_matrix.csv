@@ -1,0 +1,109 @@
+district,layout,scenario,ltv_pct,horizon_y,irr_honest_pct
+Al Reem Island,2 beds,bear,0,3,3.8
+Al Reem Island,2 beds,base,0,3,9.6
+Al Reem Island,2 beds,bull,0,3,13.4
+Al Reem Island,2 beds,bear,0,5,4.6
+Al Reem Island,2 beds,base,0,5,10.3
+Al Reem Island,2 beds,bull,0,5,14.0
+Al Reem Island,2 beds,bear,0,7,5.0
+Al Reem Island,2 beds,base,0,7,10.5
+Al Reem Island,2 beds,bull,0,7,14.2
+Al Reem Island,2 beds,bear,50,3,1.6
+Al Reem Island,2 beds,base,50,3,12.3
+Al Reem Island,2 beds,bull,50,3,19.0
+Al Reem Island,2 beds,bear,50,5,3.2
+Al Reem Island,2 beds,base,50,5,13.3
+Al Reem Island,2 beds,bull,50,5,19.3
+Al Reem Island,2 beds,bear,50,7,3.9
+Al Reem Island,2 beds,base,50,7,13.4
+Al Reem Island,2 beds,bull,50,7,18.9
+Al Reem Island,2 beds,bear,70,3,-1.2
+Al Reem Island,2 beds,base,70,3,15.4
+Al Reem Island,2 beds,bull,70,3,25.0
+Al Reem Island,2 beds,bear,70,5,1.5
+Al Reem Island,2 beds,base,70,5,16.3
+Al Reem Island,2 beds,bull,70,5,24.4
+Al Reem Island,2 beds,bear,70,7,2.7
+Al Reem Island,2 beds,base,70,7,16.1
+Al Reem Island,2 beds,bull,70,7,23.1
+Al Reem Island,1 bed,bear,0,3,3.9
+Al Reem Island,1 bed,base,0,3,9.7
+Al Reem Island,1 bed,bull,0,3,13.5
+Al Reem Island,1 bed,bear,0,5,4.7
+Al Reem Island,1 bed,base,0,5,10.3
+Al Reem Island,1 bed,bull,0,5,14.1
+Al Reem Island,1 bed,bear,0,7,5.1
+Al Reem Island,1 bed,base,0,7,10.6
+Al Reem Island,1 bed,bull,0,7,14.3
+Al Reem Island,1 bed,bear,50,3,1.7
+Al Reem Island,1 bed,base,50,3,12.5
+Al Reem Island,1 bed,bull,50,3,19.2
+Al Reem Island,1 bed,bear,50,5,3.4
+Al Reem Island,1 bed,base,50,5,13.4
+Al Reem Island,1 bed,bull,50,5,19.5
+Al Reem Island,1 bed,bear,50,7,4.1
+Al Reem Island,1 bed,base,50,7,13.5
+Al Reem Island,1 bed,bull,50,7,19.0
+Al Reem Island,1 bed,bear,70,3,-0.9
+Al Reem Island,1 bed,base,70,3,15.6
+Al Reem Island,1 bed,bull,70,3,25.2
+Al Reem Island,1 bed,bear,70,5,1.7
+Al Reem Island,1 bed,base,70,5,16.5
+Al Reem Island,1 bed,bull,70,5,24.6
+Al Reem Island,1 bed,bear,70,7,2.9
+Al Reem Island,1 bed,base,70,7,16.3
+Al Reem Island,1 bed,bull,70,7,23.3
+Al Reem Island,3 beds,bear,0,3,3.0
+Al Reem Island,3 beds,base,0,3,8.7
+Al Reem Island,3 beds,bull,0,3,12.6
+Al Reem Island,3 beds,bear,0,5,3.8
+Al Reem Island,3 beds,base,0,5,9.5
+Al Reem Island,3 beds,bull,0,5,13.3
+Al Reem Island,3 beds,bear,0,7,4.1
+Al Reem Island,3 beds,base,0,7,9.7
+Al Reem Island,3 beds,bull,0,7,13.5
+Al Reem Island,3 beds,bear,50,3,-0.0
+Al Reem Island,3 beds,base,50,3,10.8
+Al Reem Island,3 beds,bull,50,3,17.6
+Al Reem Island,3 beds,bear,50,5,1.6
+Al Reem Island,3 beds,base,50,5,11.9
+Al Reem Island,3 beds,bull,50,5,18.0
+Al Reem Island,3 beds,bear,50,7,2.3
+Al Reem Island,3 beds,base,50,7,12.0
+Al Reem Island,3 beds,bull,50,7,17.7
+Al Reem Island,3 beds,bear,70,3,-3.8
+Al Reem Island,3 beds,base,70,3,13.1
+Al Reem Island,3 beds,bull,70,3,22.8
+Al Reem Island,3 beds,bear,70,5,-1.0
+Al Reem Island,3 beds,base,70,5,14.3
+Al Reem Island,3 beds,bull,70,5,22.5
+Al Reem Island,3 beds,bear,70,7,0.3
+Al Reem Island,3 beds,base,70,7,14.2
+Al Reem Island,3 beds,bull,70,7,21.4
+Yas Island,2 beds,bear,0,3,3.8
+Yas Island,2 beds,base,0,3,9.5
+Yas Island,2 beds,bull,0,3,13.3
+Yas Island,2 beds,bear,0,5,4.6
+Yas Island,2 beds,base,0,5,10.2
+Yas Island,2 beds,bull,0,5,14.0
+Yas Island,2 beds,bear,0,7,4.9
+Yas Island,2 beds,base,0,7,10.4
+Yas Island,2 beds,bull,0,7,14.1
+Yas Island,2 beds,bear,50,3,1.4
+Yas Island,2 beds,base,50,3,12.2
+Yas Island,2 beds,bull,50,3,18.9
+Yas Island,2 beds,bear,50,5,3.1
+Yas Island,2 beds,base,50,5,13.1
+Yas Island,2 beds,bull,50,5,19.2
+Yas Island,2 beds,bear,50,7,3.8
+Yas Island,2 beds,base,50,7,13.2
+Yas Island,2 beds,bull,50,7,18.8
+Yas Island,2 beds,bear,70,3,-1.4
+Yas Island,2 beds,base,70,3,15.1
+Yas Island,2 beds,bull,70,3,24.8
+Yas Island,2 beds,bear,70,5,1.3
+Yas Island,2 beds,base,70,5,16.1
+Yas Island,2 beds,bull,70,5,24.2
+Yas Island,2 beds,bear,70,7,2.5
+Yas Island,2 beds,base,70,7,15.9
+Yas Island,2 beds,bull,70,7,23.0
