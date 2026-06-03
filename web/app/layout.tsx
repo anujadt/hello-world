@@ -20,16 +20,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 anujadt / <span className="text-zinc-400">hello-world</span>
               </Link>
               <nav className="flex items-center gap-4 text-sm">
-                {PROJECTS.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/${p.slug}`}
-                    className="text-zinc-400 hover:text-zinc-100"
-                  >
-                    {p.title.split(" ").slice(0, 3).join(" ")}
-                    {p.status === "protected" && <span className="ml-1 text-zinc-600">·🔒</span>}
-                  </Link>
-                ))}
+                {PROJECTS.map((p) =>
+                  p.externalUrl ? (
+                    <a
+                      key={p.slug}
+                      href={p.externalUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-zinc-400 hover:text-zinc-100"
+                    >
+                      {p.title.split(" ").slice(0, 3).join(" ")}
+                      <span className="ml-1 text-zinc-600">↗</span>
+                    </a>
+                  ) : (
+                    <Link
+                      key={p.slug}
+                      href={`/${p.slug}`}
+                      className="text-zinc-400 hover:text-zinc-100"
+                    >
+                      {p.title.split(" ").slice(0, 3).join(" ")}
+                      {p.status === "protected" && <span className="ml-1 text-zinc-600">·🔒</span>}
+                    </Link>
+                  ),
+                )}
                 <Link
                   href="https://github.com/anujadt/hello-world"
                   className="text-zinc-500 hover:text-zinc-300"

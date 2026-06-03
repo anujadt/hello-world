@@ -31,20 +31,35 @@ function pct(s: string, digits = 2): string {
 }
 
 export default async function PostShockPage() {
-  const [memo, shortlist, distress, cohort, lag, supply] = await Promise.all([
-    readMemo(),
-    readCsv("shortlist.csv"),
-    readCsv("distress.csv"),
-    readCsv("cohort.csv"),
-    readCsv("lag_contamination.csv"),
-    readCsv("supply.csv"),
-  ]);
+  const [memo, shortlist, distress, cohort, lag, supply, irrBase, irrLead, sourcing, triRefresh] =
+    await Promise.all([
+      readMemo(),
+      readCsv("shortlist.csv"),
+      readCsv("distress.csv"),
+      readCsv("cohort.csv"),
+      readCsv("lag_contamination.csv"),
+      readCsv("supply.csv"),
+      readCsv("irr_base_matrix.csv"),
+      readCsv("irr_lead_full_matrix.csv"),
+      readCsv("sourcing_briefs.csv"),
+      readCsv("triangulation_refresh.csv"),
+    ]);
+
+  // Pivot the lead full IRR matrix into scenario rows x (ltv, horizon) columns.
+  const ltvs = [0, 50, 70];
+  const horizons = [3, 5, 7];
+  const irrCell = (scenario: string, ltv: number, h: number) => {
+    const row = irrLead.find(
+      (r) => r.scenario === scenario && Number(r.ltv_pct) === ltv && Number(r.horizon_y) === h,
+    );
+    return row ? Number(row.irr_pct) : NaN;
+  };
 
   return (
     <div className="space-y-12">
       <header>
         <div className="inline-block text-[10px] uppercase tracking-wide bg-amber-950/40 border border-amber-900/40 text-amber-300 px-2 py-0.5 rounded">
-          v3 — lag-corrected
+          v3, lag-corrected
         </div>
         <h1 className="text-2xl font-bold text-zinc-100 mt-2">Post-shock opportunity scan</h1>
         <p className="text-zinc-400 mt-1 text-sm max-w-3xl">
@@ -100,7 +115,7 @@ export default async function PostShockPage() {
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold text-zinc-100 mb-3">Cohort dump leaderboard — where forced sellers are concentrating</h2>
+        <h2 className="text-lg font-semibold text-zinc-100 mb-3">Cohort dump leaderboard, where forced sellers are concentrating</h2>
         <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
           For each 2022-2024 off-plan launch, the share of post-event off-plan transactions that are SECONDARY
           (original buyer reselling) rather than primary (developer selling). Above 80% means the project is
@@ -254,6 +269,144 @@ export default async function PostShockPage() {
                     </tr>
                   );
                 })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-semibold text-zinc-100 mb-3">Levered IRR, lead pick (Al Reem 2-bed)</h2>
+        <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
+          Full scenario matrix. Mortgage 5.25% / 25y, 2% ADM + 2% agent in, 2% agent out, net rent
+          grows with the scenario. Positive carry (6.08% net yield &gt; 5.25% debt) makes leverage
+          accretive. Entry AED 1.77M, net rent ~AED 112k/yr.
+        </p>
+        <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table className="w-full text-xs">
+            <thead className="bg-zinc-900 text-zinc-300">
+              <tr>
+                <th className="text-left p-2 border-b border-zinc-800">Scenario</th>
+                {ltvs.map((l) =>
+                  horizons.map((h) => (
+                    <th key={`${l}-${h}`} className="text-right p-2 border-b border-zinc-800">
+                      LTV{l} / {h}y
+                    </th>
+                  )),
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {["bear", "base", "bull"].map((scen) => (
+                <tr key={scen} className="odd:bg-zinc-950 even:bg-zinc-900/40">
+                  <td className="p-2 border-b border-zinc-900 text-zinc-200 capitalize">
+                    {scen}
+                    <span className="text-zinc-600 ml-1">
+                      {scen === "bear" ? "(0%/yr)" : scen === "base" ? "(+6%/yr)" : "(+10%/yr)"}
+                    </span>
+                  </td>
+                  {ltvs.map((l) =>
+                    horizons.map((h) => {
+                      const v = irrCell(scen, l, h);
+                      const color =
+                        v >= 15 ? "text-emerald-300" : v >= 8 ? "text-zinc-200" : "text-amber-300";
+                      return (
+                        <td
+                          key={`${scen}-${l}-${h}`}
+                          className={`p-2 border-b border-zinc-900 text-right font-semibold ${color}`}
+                        >
+                          {Number.isNaN(v) ? "-" : `${v.toFixed(1)}%`}
+                        </td>
+                      );
+                    }),
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-zinc-500 mt-3">
+          Base-case IRR across all four shortlist cells (price +6%/yr, rent +3%/yr): each delivers
+          ~10% unlevered rising to ~18% at LTV-70. Even the bear case (flat prices) stays positive on
+          yield carry. Full per-cell matrix in <code className="bg-zinc-900 px-1 rounded">irr_base_matrix.csv</code>.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-semibold text-zinc-100 mb-3">Off-market sourcing briefs</h2>
+        <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
+          For each cohort-dump project (≥75% secondary share post-event), the detail a broker needs:
+          deal count, layout-weighted psm range, ticket range, and last print date. These are the
+          buildings where forced-seller inventory concentrates.
+        </p>
+        <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table className="w-full text-xs">
+            <thead className="bg-zinc-900 text-zinc-300">
+              <tr>
+                <th className="text-left p-2 border-b border-zinc-800">District</th>
+                <th className="text-left p-2 border-b border-zinc-800">Project</th>
+                <th className="text-right p-2 border-b border-zinc-800">Deals</th>
+                <th className="text-right p-2 border-b border-zinc-800">2nd share</th>
+                <th className="text-right p-2 border-b border-zinc-800">Median psm</th>
+                <th className="text-right p-2 border-b border-zinc-800">psm p10-p90</th>
+                <th className="text-right p-2 border-b border-zinc-800">Median ticket</th>
+                <th className="text-right p-2 border-b border-zinc-800">Last print</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sourcing.map((r, i) => (
+                <tr key={i} className="odd:bg-zinc-950 even:bg-zinc-900/40">
+                  <td className="p-2 border-b border-zinc-900 text-zinc-200">{r.district}</td>
+                  <td className="p-2 border-b border-zinc-900 text-zinc-300">{r.project}</td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">{r.post_event_deals}</td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-amber-300">{Number(r.secondary_share_pct).toFixed(0)}%</td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-300">
+                    AED {Number(r.median_psm).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-500">
+                    {Number(r.psm_p10).toLocaleString(undefined, { maximumFractionDigits: 0 })}–
+                    {Number(r.psm_p90).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-300">{fmtAed(Number(r.median_price))}</td>
+                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-500">{r.last_print_date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-semibold text-zinc-100 mb-3">Triangulation refresh (Q1/Q2 2026 sources)</h2>
+        <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
+          v3 findings cross-checked against freshly published 2026 reports. Notable: my Reem psm matches
+          published within 2%, and ValuStrat&apos;s 88.1% occupancy implies my 7% base vacancy is
+          optimistic, so the +5pp stress case is the realistic working number.
+        </p>
+        <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table className="w-full text-xs">
+            <thead className="bg-zinc-900 text-zinc-300">
+              <tr>
+                <th className="text-left p-2 border-b border-zinc-800">Claim</th>
+                <th className="text-left p-2 border-b border-zinc-800">My finding</th>
+                <th className="text-left p-2 border-b border-zinc-800">External</th>
+                <th className="text-left p-2 border-b border-zinc-800">Source</th>
+                <th className="text-left p-2 border-b border-zinc-800">Variance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {triRefresh.map((r, i) => (
+                <tr key={i} className="odd:bg-zinc-950 even:bg-zinc-900/40 align-top">
+                  <td className="p-2 border-b border-zinc-900 text-zinc-200">{r.claim}</td>
+                  <td className="p-2 border-b border-zinc-900 text-zinc-400 max-w-xs">{r.my_finding}</td>
+                  <td className="p-2 border-b border-zinc-900 text-zinc-400 max-w-xs">{r.external_figure}</td>
+                  <td className="p-2 border-b border-zinc-900 text-zinc-500">
+                    <a className="hover:text-blue-300" href={r.source_url} target="_blank" rel="noreferrer">
+                      {r.source}
+                    </a>
+                  </td>
+                  <td className="p-2 border-b border-zinc-900 text-zinc-300">{r.variance}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

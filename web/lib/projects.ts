@@ -35,8 +35,10 @@ export type Project = {
   status: "public" | "protected"; // Public = open. Protected = password gate.
   auth?: ProjectAuth;             // Required when status === "protected"
   envVarPrefix?: string;          // Optional, e.g. "RE_" allows RE_PASSWORD / RE_SECRET overrides
-  pages: ProjectPage[];           // Sub-nav inside the project
+  pages: ProjectPage[];           // Sub-nav inside the project (internal projects only)
   accent?: string;                // Optional tailwind text-color class for card accent
+  externalUrl?: string;           // If set, the landing card links out to this URL (separate deployment)
+                                  // instead of an internal /<slug> route. Used to showcase other live sites.
 };
 
 export const PROJECTS: Project[] = [
@@ -65,6 +67,30 @@ export const PROJECTS: Project[] = [
     ],
     accent: "text-emerald-400",
   },
+  {
+    // External showcase card: links out to a separately deployed live site.
+    slug: "yas-island-studios",
+    title: "Luxury Studios on Yas Island",
+    blurb:
+      "Property listing site for two furnished studio apartments on Yas Island (the Mayan holding referenced in the real estate analysis). Built and deployed as a standalone marketing page.",
+    tags: ["real estate", "web", "listing"],
+    status: "public",
+    pages: [],
+    externalUrl:
+      "https://luxury-studio-yas-island-git-main-anujtwp-1602s-projects.vercel.app",
+    accent: "text-sky-400",
+  },
+  // To surface more of your live projects here, add an entry with an externalUrl.
+  // Example (currently password-gated, so left off the public landing):
+  // {
+  //   slug: "risklens",
+  //   title: "RiskLens Portfolio Optimizer",
+  //   blurb: "Upload a portfolio, get an efficient-frontier optimization.",
+  //   tags: ["finance", "tool"],
+  //   status: "public",
+  //   pages: [],
+  //   externalUrl: "https://portfoliooptimization-git-main-anujtwp-1602s-projects.vercel.app",
+  // },
 ];
 
 export function projectBySlug(slug: string): Project | undefined {

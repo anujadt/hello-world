@@ -1,0 +1,37 @@
+district,layout,scenario,ltv_pct,horizon_y,irr_pct,equity_in,equity_multiple
+Al Reem Island,2 beds,base,0,3,9.9,1839760.0,1.31
+Al Reem Island,2 beds,base,0,5,10.6,1839760.0,1.58
+Al Reem Island,2 beds,base,0,7,10.9,1839760.0,1.88
+Al Reem Island,2 beds,base,50,3,13.8,957471.0,1.45
+Al Reem Island,2 beds,base,50,5,14.6,957471.0,1.89
+Al Reem Island,2 beds,base,50,7,14.6,957471.0,2.38
+Al Reem Island,2 beds,base,70,3,18.1,604556.0,1.63
+Al Reem Island,2 beds,base,70,5,18.7,604556.0,2.26
+Al Reem Island,2 beds,base,70,7,18.2,604556.0,2.99
+Al Reem Island,1 bed,base,0,3,10.0,1251640.0,1.31
+Al Reem Island,1 bed,base,0,5,10.7,1251640.0,1.59
+Al Reem Island,1 bed,base,0,7,11.0,1251640.0,1.89
+Al Reem Island,1 bed,base,50,3,14.0,651394.0,1.46
+Al Reem Island,1 bed,base,50,5,14.8,651394.0,1.9
+Al Reem Island,1 bed,base,50,7,14.8,651394.0,2.39
+Al Reem Island,1 bed,base,70,3,18.4,411296.0,1.64
+Al Reem Island,1 bed,base,70,5,19.0,411296.0,2.28
+Al Reem Island,1 bed,base,70,7,18.4,411296.0,3.01
+Al Reem Island,3 beds,base,0,3,9.1,2893800.0,1.28
+Al Reem Island,3 beds,base,0,5,9.8,2893800.0,1.54
+Al Reem Island,3 beds,base,0,7,10.0,2893800.0,1.82
+Al Reem Island,3 beds,base,50,3,12.2,1506028.0,1.4
+Al Reem Island,3 beds,base,50,5,13.2,1506028.0,1.8
+Al Reem Island,3 beds,base,50,7,13.2,1506028.0,2.25
+Al Reem Island,3 beds,base,70,3,15.7,950919.0,1.54
+Al Reem Island,3 beds,base,70,5,16.6,950919.0,2.12
+Al Reem Island,3 beds,base,70,7,16.2,950919.0,2.78
+Yas Island,2 beds,base,0,3,9.9,2469823.0,1.31
+Yas Island,2 beds,base,0,5,10.6,2469823.0,1.58
+Yas Island,2 beds,base,0,7,10.8,2469823.0,1.88
+Yas Island,2 beds,base,50,3,13.7,1285376.0,1.45
+Yas Island,2 beds,base,50,5,14.5,1285376.0,1.88
+Yas Island,2 beds,base,50,7,14.5,1285376.0,2.37
+Yas Island,2 beds,base,70,3,17.9,811598.0,1.62
+Yas Island,2 beds,base,70,5,18.5,811598.0,2.25
+Yas Island,2 beds,base,70,7,18.0,811598.0,2.96
