@@ -60,6 +60,7 @@ export const PROJECTS: Project[] = [
       { href: "/real-estate", label: "Overview" },
       { href: "/real-estate/memo", label: "Insight memo" },
       { href: "/real-estate/post-shock", label: "Post-shock scan" },
+      { href: "/real-estate/studios", label: "Studio YoY" },
       { href: "/real-estate/scorecard", label: "Scorecard" },
       { href: "/real-estate/shortlist", label: "Shortlist" },
       { href: "/real-estate/triangulation", label: "Triangulation" },
