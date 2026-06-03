@@ -7,9 +7,15 @@ import remarkGfm from "remark-gfm";
 export const dynamic = "force-static";
 
 const DATA = path.join(process.cwd(), "public", "data", "real-estate", "post-shock");
+const V35 = path.join(process.cwd(), "public", "data", "real-estate", "v3_5");
 
 async function readCsv(name: string) {
   const raw = await fs.readFile(path.join(DATA, name), "utf8");
+  return parse(raw, { columns: true, skip_empty_lines: true }) as Record<string, string>[];
+}
+
+async function readV35(name: string) {
+  const raw = await fs.readFile(path.join(V35, name), "utf8");
   return parse(raw, { columns: true, skip_empty_lines: true }) as Record<string, string>[];
 }
 
@@ -31,19 +37,38 @@ function pct(s: string, digits = 2): string {
 }
 
 export default async function PostShockPage() {
-  const [memo, shortlist, distress, cohort, lag, supply, irrBase, irrLead, sourcing, triRefresh] =
-    await Promise.all([
-      readMemo(),
-      readCsv("shortlist.csv"),
-      readCsv("distress.csv"),
-      readCsv("cohort.csv"),
-      readCsv("lag_contamination.csv"),
-      readCsv("supply.csv"),
-      readCsv("irr_base_matrix.csv"),
-      readCsv("irr_lead_full_matrix.csv"),
-      readCsv("sourcing_briefs.csv"),
-      readCsv("triangulation_refresh.csv"),
-    ]);
+  const [
+    memo, shortlist, distress, cohort, lag, supply, irrBase, irrLead, sourcing, triRefresh,
+    lagGrid, poissonCIs, cohortExcess,
+  ] = await Promise.all([
+    readMemo(),
+    readCsv("shortlist.csv"),
+    readCsv("distress.csv"),
+    readCsv("cohort.csv"),
+    readCsv("lag_contamination.csv"),
+    readCsv("supply.csv"),
+    readCsv("irr_base_matrix.csv"),
+    readCsv("irr_lead_full_matrix.csv"),
+    readCsv("sourcing_briefs.csv"),
+    readCsv("triangulation_refresh.csv"),
+    readV35("lag_sensitivity_grid.csv"),
+    readV35("poisson_vol_cis.csv"),
+    readV35("cohort_excess_vs_baseline.csv"),
+  ]);
+
+  // v3.5 join lookups
+  const lagFor = (district: string, layout: string) =>
+    lagGrid.find((r) => r.district === district && r.layout === layout && r.ptype === "apartment");
+  const ciFor = (district: string, layout: string) =>
+    poissonCIs.find((r) => r.district === district && r.layout === layout && r.ptype === "apartment");
+  const excessFor = (district: string, project: string) =>
+    cohortExcess.find((r) => r.district === district && r.project === project);
+  void irrBase;
+  void irrLead;
+  void sourcing;
+  void triRefresh;
+  void lag;
+  void supply;
 
   // Pivot the lead full IRR matrix into scenario rows x (ltv, horizon) columns.
   const ltvs = [0, 50, 70];
@@ -74,6 +99,9 @@ export default async function PostShockPage() {
         <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
           Filters applied: freehold zones, ready apartments, post-event n ≥ 20, regime not frozen,
           bootstrap 90% CI on excess-change does not include zero. Worst-case yield = rent -25%, vacancy +10pp.
+          The two rightmost columns are v3.5 additions: lag-sensitivity tag across {"{30, 45, 60, 90}"}-day
+          assumed registration lags, and 90% Poisson CI on the volume ratio (CI excluding 1.0 means the
+          velocity change is statistically significant).
         </p>
         <div className="overflow-x-auto border border-zinc-800 rounded-lg">
           <table className="w-full text-xs">
@@ -89,26 +117,59 @@ export default async function PostShockPage() {
                 <th className="text-right p-2 border-b border-zinc-800">Excess % (CI)</th>
                 <th className="text-right p-2 border-b border-zinc-800">Supply x</th>
                 <th className="text-left p-2 border-b border-zinc-800">Confidence</th>
+                <th className="text-left p-2 border-b border-zinc-800">Lag sensitivity</th>
+                <th className="text-left p-2 border-b border-zinc-800">Vol-ratio CI (90%)</th>
               </tr>
             </thead>
             <tbody>
-              {shortlist.map((r, i) => (
-                <tr key={i} className="odd:bg-zinc-950 even:bg-zinc-900/40">
-                  <td className="p-2 border-b border-zinc-900 text-zinc-300">{i + 1}</td>
-                  <td className="p-2 border-b border-zinc-900 text-zinc-100">{r.district}</td>
-                  <td className="p-2 border-b border-zinc-900 text-zinc-300">{r.layout}</td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">{r.n_post_ready}</td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-300">{fmtAed(Number(r.price_med))}</td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-emerald-300 font-semibold">{Number(r.net_yield_adj_pct).toFixed(2)}%</td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-amber-300">{Number(r.worst_case_yield).toFixed(2)}%</td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">
-                    {pct(r.excess_change_pct, 1)}{" "}
-                    <span className="text-zinc-600">[{Number(r.excess_ci_lo).toFixed(1)}, {Number(r.excess_ci_hi).toFixed(1)}]</span>
-                  </td>
-                  <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">{Number(r.supply_overhang_ratio).toFixed(1)}x</td>
-                  <td className="p-2 border-b border-zinc-900 text-zinc-400">{r.confidence}</td>
-                </tr>
-              ))}
+              {shortlist.map((r, i) => {
+                const frag = lagFor(r.district, r.layout);
+                const ci = ciFor(r.district, r.layout);
+                const fragTag = frag?.fragility ?? "n/a";
+                const fragColor =
+                  fragTag === "FRAGILE" ? "bg-red-950/40 border-red-900/40 text-red-300"
+                  : fragTag === "wide-band" ? "bg-amber-950/40 border-amber-900/40 text-amber-300"
+                  : fragTag === "stable" ? "bg-emerald-950/40 border-emerald-900/40 text-emerald-300"
+                  : "bg-zinc-900 border-zinc-800 text-zinc-500";
+                const ciExcludesOne = ci?.vol_ci_excludes_one === "True";
+                return (
+                  <tr key={i} className="odd:bg-zinc-950 even:bg-zinc-900/40">
+                    <td className="p-2 border-b border-zinc-900 text-zinc-300">{i + 1}</td>
+                    <td className="p-2 border-b border-zinc-900 text-zinc-100">{r.district}</td>
+                    <td className="p-2 border-b border-zinc-900 text-zinc-300">{r.layout}</td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">{r.n_post_ready}</td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-zinc-300">{fmtAed(Number(r.price_med))}</td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-emerald-300 font-semibold">{Number(r.net_yield_adj_pct).toFixed(2)}%</td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-amber-300">{Number(r.worst_case_yield).toFixed(2)}%</td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">
+                      {pct(r.excess_change_pct, 1)}{" "}
+                      <span className="text-zinc-600">[{Number(r.excess_ci_lo).toFixed(1)}, {Number(r.excess_ci_hi).toFixed(1)}]</span>
+                    </td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-zinc-400">{Number(r.supply_overhang_ratio).toFixed(1)}x</td>
+                    <td className="p-2 border-b border-zinc-900 text-zinc-400">{r.confidence}</td>
+                    <td className="p-2 border-b border-zinc-900">
+                      <span className={`text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border ${fragColor}`}>
+                        {fragTag}
+                      </span>
+                      {frag && (
+                        <span className="text-[10px] text-zinc-500 ml-2">
+                          ±{frag.px_max_swing_pp}pp swing
+                        </span>
+                      )}
+                    </td>
+                    <td className={`p-2 border-b border-zinc-900 ${ciExcludesOne ? "text-emerald-300" : "text-amber-300"}`}>
+                      {ci ? (
+                        <>
+                          [{Number(ci.vol_ratio_ci_lo).toFixed(2)}, {Number(ci.vol_ratio_ci_hi).toFixed(2)}]
+                          <span className="text-[10px] text-zinc-500 ml-2">
+                            {ciExcludesOne ? "sig" : "n.s."}
+                          </span>
+                        </>
+                      ) : "-"}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -118,8 +179,9 @@ export default async function PostShockPage() {
         <h2 className="text-lg font-semibold text-zinc-100 mb-3">Cohort dump leaderboard, where forced sellers are concentrating</h2>
         <p className="text-xs text-zinc-500 mb-3 max-w-3xl">
           For each 2022-2024 off-plan launch, the share of post-event off-plan transactions that are SECONDARY
-          (original buyer reselling) rather than primary (developer selling). Above 80% means the project is
-          functionally a resale market and original investors are exiting. This is the off-market entry path.
+          (original buyer reselling) rather than primary (developer selling). v3.5 fix: also shown is the matched
+          pre-shock baseline secondary share at the same months-since-launch, and the excess over baseline.
+          The 92% claim now reads as &quot;X pp above what pre-shock projects normally show at this maturity&quot;.
         </p>
         <div className="overflow-x-auto border border-zinc-800 rounded-lg">
           <table className="w-full text-xs">
@@ -130,12 +192,22 @@ export default async function PostShockPage() {
                 <th className="text-right p-2 border-b border-zinc-800">Launch</th>
                 <th className="text-right p-2 border-b border-zinc-800">Post-event deals</th>
                 <th className="text-right p-2 border-b border-zinc-800">Secondary share</th>
+                <th className="text-right p-2 border-b border-zinc-800">Matched baseline</th>
+                <th className="text-right p-2 border-b border-zinc-800">Excess over baseline</th>
               </tr>
             </thead>
             <tbody>
               {cohort.slice(0, 25).map((r, i) => {
                 const sec = Number(r.secondary_share_pct);
                 const color = sec >= 95 ? "text-red-300" : sec >= 85 ? "text-amber-300" : "text-zinc-400";
+                const excessRow = excessFor(r.district, r.project);
+                const baseline = excessRow ? Number(excessRow.baseline_secondary_pct) : NaN;
+                const excess = excessRow ? Number(excessRow.excess_over_baseline_pp) : NaN;
+                const excessColor =
+                  excess >= 60 ? "text-red-300"
+                  : excess >= 30 ? "text-amber-300"
+                  : excess >= 10 ? "text-zinc-200"
+                  : "text-zinc-500";
                 return (
                   <tr key={i} className="odd:bg-zinc-950 even:bg-zinc-900/40">
                     <td className="p-2 border-b border-zinc-900 text-zinc-200">{r.district}</td>
@@ -145,12 +217,24 @@ export default async function PostShockPage() {
                     <td className={`p-2 border-b border-zinc-900 text-right font-semibold ${color}`}>
                       {sec.toFixed(0)}%
                     </td>
+                    <td className="p-2 border-b border-zinc-900 text-right text-zinc-500">
+                      {Number.isNaN(baseline) ? "-" : `${baseline.toFixed(0)}%`}
+                    </td>
+                    <td className={`p-2 border-b border-zinc-900 text-right font-semibold ${excessColor}`}>
+                      {Number.isNaN(excess) ? "-" : `+${excess.toFixed(0)} pp`}
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
+        <p className="text-xs text-zinc-500 mt-3 max-w-3xl">
+          Read: the 92% secondary-share claim was always going to be somewhat normal for a 2-3 year
+          old off-plan launch (matched baseline is typically 20-35%). The signal is the EXCESS over
+          baseline. Bloom Living Olvera (+74 pp above matched baseline) and similar are still
+          materially anomalous post-shock.
+        </p>
       </section>
 
       <section>
