@@ -1,0 +1,7 @@
+district,n_last12m,median_psm,median_ticket,median_sqm,all_in_entry,gross_yield_pct_adjusted,service_charge_aed,net_yield_pct,tier
+Al Reem Island,95,14797,700000,45.4,728000,8.77,5860,6.61,affordable
+Yas Island,81,20668,1050000,45.6,1092000,8.51,8839,6.39,midtier
+Masdar City,168,17251,569660,29.4,592447,8.33,5704,6.08,midtier
+Khalifa City,51,17817,690000,36.4,717600,8.33,7043,6.06,midtier
+Al Saadiyat Island,24,20922,1037500,47.9,1079000,6.84,9283,4.93,midtier
+Al Maryah Island,239,17436,730000,47.8,759200,6.26,9257,4.08,midtier
