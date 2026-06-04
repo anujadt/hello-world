@@ -75,7 +75,7 @@
   --plum: #5b4255;
   --plum-deep: #4a3545;
   --peach: oklch(0.87 0.07 60);
-  --pink: oklch(0.70 0.20 0);
+  --pink: oklch(0.7 0.2 0);
   --pink-hot: #d4577f;
   --cream: oklch(0.96 0.03 80);
   --background: var(--plum);
@@ -94,8 +94,8 @@
   --accent-foreground: var(--peach);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.50 0.05 350);
-  --input: oklch(0.50 0.05 350);
+  --border: oklch(0.5 0.05 350);
+  --input: oklch(0.5 0.05 350);
   --ring: var(--pink);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -158,7 +158,10 @@
     font-family: var(--font-sans);
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
     line-height: 0.95;
@@ -166,20 +169,38 @@
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
 }
 @keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
-.animate-wiggle { animation: wiggle 3s ease-in-out infinite; }
-.animate-float-y { animation: float-y 5s ease-in-out infinite; }
+.animate-wiggle {
+  animation: wiggle 3s ease-in-out infinite;
+}
+.animate-float-y {
+  animation: float-y 5s ease-in-out infinite;
+}
 
 .marquee-track {
   animation: marquee 28s linear infinite;
 }
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

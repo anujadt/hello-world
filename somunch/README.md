@@ -22,9 +22,9 @@ npm run preview              # serve the production build locally
 
 ## Environment variables
 
-| Variable                        | Description                                              |
-| ------------------------------- | -------------------------------------------------------- |
-| `VITE_SUPABASE_URL`             | Supabase project URL                                     |
+| Variable                        | Description                                               |
+| ------------------------------- | --------------------------------------------------------- |
+| `VITE_SUPABASE_URL`             | Supabase project URL                                      |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable/anon key (safe to expose; RLS-gated) |
 
 Set these in `.env.local` for local dev and in the Vercel project settings

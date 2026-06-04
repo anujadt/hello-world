@@ -6,6 +6,7 @@ _Live progress tracker. Last updated: 2026-06-04._
 backed by a new Supabase project, deployed on Vercel. UI/UX kept pixel-identical.
 
 ## Checklist
+
 - [x] Explore Lovable export & confirm exact UI (TanStack Start → SPA)
 - [x] Create new Supabase project `so-munch` (`nyrtpuqrruwjculuneme`, eu-central-1, free tier)
 - [x] Apply DB schema (waitlist_signups + RLS insert policy + email column)
@@ -19,13 +20,15 @@ backed by a new Supabase project, deployed on Vercel. UI/UX kept pixel-identical
 - [x] `npm install` (348 packages, clean)
 - [x] `npm run build` (clean production build, ~3.8s)
 - [x] Run locally (vite preview :4173) + screenshot desktop & mobile → **shown to user**
-- [ ] **Awaiting user OK on local build** before deploy
+- [x] Real mascot wired in + tagline clean two-line break (user requests)
 - [x] Verify DB write path: anon email-only insert ACCEPTED; no-contact insert REJECTED by RLS; table cleaned
-- [x] Commit & push to branch `claude/keen-johnson-byRwy` (commit 74f423c)
-- [ ] Vercel: create project (Root Directory = `somunch`) + env vars → deploy  ← **awaiting user go-ahead**
+- [x] **Full QA pass — see `QA.md`** (build · tsc 0 · lint 0 err · UI · RLS security · hygiene), all ✅
+- [x] Commit & push to branch `claude/keen-johnson-byRwy`
+- [ ] Vercel: create project (Root Directory = `somunch`) + env vars → deploy ← **awaiting user go-ahead**
 - [ ] Post-deploy smoke test (open URL, submit form, confirm row)
 
 ## Key facts
+
 - Supabase project: `so-munch` / ref `nyrtpuqrruwjculuneme` / region eu-central-1 / **$0 free tier**
 - Supabase URL: `https://nyrtpuqrruwjculuneme.supabase.co`
 - Branch: `claude/keen-johnson-byRwy` in `anujadt/hello-world`, app under `somunch/`
@@ -33,6 +36,7 @@ backed by a new Supabase project, deployed on Vercel. UI/UX kept pixel-identical
 - Deploy gate: **user reviews local build before any Vercel deploy**
 
 ## Open items / decisions
-- Mascot art: swap the temporary stand-in for the real `so-munch-frog.png` once
-  the host is allowlisted or the file is attached.
+
+- Mascot: original art wired in (downscaled 8.3MB→203KB). ✅
 - OG/social preview image: currently omitted; can add a 1200×630 image later.
+- Vercel deploy: pending user go-ahead.

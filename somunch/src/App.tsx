@@ -62,16 +62,17 @@ function BannerHero() {
           />
           <h1 className="flex justify-center">
             <span className="sr-only">so munch</span>
-            <div className="w-full max-w-[900px] md:max-w-[1100px] overflow-hidden select-none pointer-events-none" style={{ aspectRatio: "5 / 1" }}>
-              <img
-                src={wordmark}
-                alt="So Munch"
-                className="w-full h-auto -mt-[12%] mb-[-12%]"
-              />
+            <div
+              className="w-full max-w-[900px] md:max-w-[1100px] overflow-hidden select-none pointer-events-none"
+              style={{ aspectRatio: "5 / 1" }}
+            >
+              <img src={wordmark} alt="So Munch" className="w-full h-auto -mt-[12%] mb-[-12%]" />
             </div>
           </h1>
-          <p className="mt-3 text-peach/70 text-sm md:text-base">
-            A high-protein cake mix · just add water, microwave, eat.
+          <p className="mt-3 text-peach/70 text-sm md:text-base text-balance">
+            A high-protein cake mix
+            <br />
+            just add water, microwave, eat.
           </p>
           <InlineNotify />
           <span className="inline-block mt-5 rounded-full bg-pink-hot/20 border border-pink-hot/50 px-4 py-1.5 text-[10px] md:text-xs uppercase tracking-[0.2em] text-peach">
@@ -114,8 +115,7 @@ function InlineNotify() {
       country_code: "+971",
       phone: null,
       source: "inline-notify",
-      user_agent:
-        typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
     });
     setLoading(false);
 
@@ -132,9 +132,7 @@ function InlineNotify() {
     return (
       <div className="mt-6 mx-auto max-w-md rounded-2xl bg-peach text-plum p-5">
         <p className="font-display uppercase text-xl">You're in.</p>
-        <p className="mt-2 text-plum/80 text-sm">
-          We'll email {email} the moment we launch.
-        </p>
+        <p className="mt-2 text-plum/80 text-sm">We'll email {email} the moment we launch.</p>
       </div>
     );
   }
@@ -205,8 +203,7 @@ function NotifyDialog({
       country_code: "+971",
       phone: null,
       source: "notify-dialog",
-      user_agent:
-        typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 255) : null,
     });
     setLoading(false);
 
@@ -246,9 +243,7 @@ function NotifyDialog({
         {done ? (
           <div className="rounded-2xl bg-plum text-peach p-5">
             <p className="font-display uppercase text-xl">You're in.</p>
-            <p className="mt-2 text-peach/80 text-sm">
-              We'll email {email} the moment we launch.
-            </p>
+            <p className="mt-2 text-peach/80 text-sm">We'll email {email} the moment we launch.</p>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="grid gap-3">
@@ -294,23 +289,35 @@ function FinalCTA() {
   return (
     <section id="waitlist" className="px-6 md:px-12 py-20 md:py-28">
       <div className="max-w-3xl mx-auto rounded-[2.5rem] bg-peach text-plum p-8 md:p-14 text-center relative overflow-hidden">
-        <img src={lips} alt="" aria-hidden className="absolute -top-6 -left-6 w-24 md:w-36 rotate-[-15deg] animate-float-y opacity-90" />
-        <img src={lips} alt="" aria-hidden className="absolute -bottom-8 -right-6 w-24 md:w-36 rotate-[20deg] animate-float-y opacity-90" />
+        <img
+          src={lips}
+          alt=""
+          aria-hidden
+          className="absolute -top-6 -left-6 w-24 md:w-36 rotate-[-15deg] animate-float-y opacity-90"
+        />
+        <img
+          src={lips}
+          alt=""
+          aria-hidden
+          className="absolute -bottom-8 -right-6 w-24 md:w-36 rotate-[20deg] animate-float-y opacity-90"
+        />
 
         <p className="font-script text-3xl text-pink-hot">launching in the UAE 🇦🇪</p>
         <h2 className="text-[clamp(2.25rem,6vw,4rem)] uppercase mt-2 leading-[0.95]">
-          Be first<br />to munch.
+          Be first
+          <br />
+          to munch.
         </h2>
         <p className="mt-5 text-base md:text-lg text-plum/80 max-w-md mx-auto">
-          Drop your number — we'll text you the second we go live with our
-          launch date and a little welcome treat.
+          Drop your number — we'll text you the second we go live with our launch date and a little
+          welcome treat.
         </p>
 
         <WaitlistForm />
 
         <p className="mt-5 text-xs text-plum/60 max-w-sm mx-auto">
-          We'll only use your number to text you launch updates. No spam, no
-          guilt. Unsubscribe anytime.
+          We'll only use your number to text you launch updates. No spam, no guilt. Unsubscribe
+          anytime.
         </p>
       </div>
     </section>
@@ -435,8 +442,12 @@ function Footer() {
           © {new Date().getFullYear()} So Munch · Launching in the UAE · Made to love
         </p>
         <div className="flex gap-5 text-peach/70 text-xs uppercase tracking-widest">
-          <a href="#" className="hover:text-peach">Instagram</a>
-          <a href="#" className="hover:text-peach">Tiktok</a>
+          <a href="#" className="hover:text-peach">
+            Instagram
+          </a>
+          <a href="#" className="hover:text-peach">
+            Tiktok
+          </a>
         </div>
       </div>
     </footer>
