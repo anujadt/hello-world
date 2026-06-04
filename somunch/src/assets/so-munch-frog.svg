@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" fill="none">
+  <!-- So Munch mascot — vector recreation (heart-lips frog + "I LOVE CAKES SO MUNCH!" bubble).
+       Stand-in for the original so-munch-frog.png until the exact file is available. -->
+  <g stroke="#3a2730" stroke-width="9" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- ===== Speech bubble ===== -->
+    <path d="M70 250
+             C70 150 150 120 260 118
+             C400 116 520 122 560 150
+             C600 178 596 250 556 278
+             C520 304 470 310 430 312
+             L405 372 L372 312
+             C260 312 70 320 70 250 Z"
+          fill="#d6a39c"/>
+    <!-- bubble hearts -->
+    <path d="M120 150 C110 132 80 134 82 158 C84 180 120 196 120 196 C120 196 156 180 158 158 C160 134 130 132 120 150 Z" fill="#c46fb4"/>
+    <path d="M548 258 C540 244 516 246 518 266 C520 284 548 298 548 298 C548 298 576 284 578 266 C580 246 556 244 548 258 Z" fill="#c46fb4"/>
+
+    <!-- ===== Hind legs / webbed feet (behind body) ===== -->
+    <!-- left foot -->
+    <path d="M470 650 C430 720 410 770 392 812
+             C384 760 360 770 332 792
+             C360 752 348 742 318 752
+             C356 716 344 700 314 700
+             C360 680 392 660 470 650 Z" fill="#d49f93"/>
+    <!-- right foot -->
+    <path d="M740 650 C780 720 800 770 818 812
+             C826 760 850 770 878 792
+             C850 752 862 742 892 752
+             C854 716 866 700 896 700
+             C850 680 818 660 740 650 Z" fill="#d49f93"/>
+    <!-- inner left foot -->
+    <path d="M556 712 C540 800 520 850 506 892
+             C470 858 452 872 446 902
+             C452 852 430 850 402 862
+             C470 800 470 740 556 712 Z" fill="#d49f93"/>
+    <!-- inner right foot -->
+    <path d="M654 712 C670 800 690 850 704 892
+             C740 858 758 872 764 902
+             C758 852 780 850 808 862
+             C740 800 740 740 654 712 Z" fill="#d49f93"/>
+
+    <!-- ===== Lips / heart body ===== -->
+    <path d="M605 470
+             C605 432 640 396 700 398
+             C772 400 805 446 802 492
+             C800 560 742 690 605 712
+             C468 690 410 560 408 492
+             C405 446 438 400 510 398
+             C570 396 605 432 605 470 Z"
+          fill="#c8456a"/>
+
+    <!-- ===== Mouth (dark) ===== -->
+    <path d="M470 486
+             C470 470 740 470 740 486
+             C742 566 686 678 605 690
+             C524 678 468 566 470 486 Z"
+          fill="#3a2730"/>
+
+    <!-- ===== Upper teeth / lip highlight (peach) ===== -->
+    <path d="M548 506 C548 494 712 494 712 506 L708 532 C708 544 552 544 552 532 Z"
+          fill="#ecb88f" stroke-width="6"/>
+
+    <!-- ===== Heart tongue ===== -->
+    <path d="M605 596 C592 572 552 574 554 612 C556 652 605 686 605 686 C605 686 654 652 656 612 C658 574 618 572 605 596 Z"
+          fill="#cd7fa1" stroke-width="6"/>
+
+    <!-- ===== Eyes ===== -->
+    <path d="M520 452 C534 442 552 442 566 452" stroke-width="9"/>
+    <path d="M644 452 C658 442 676 442 690 452" stroke-width="9"/>
+  </g>
+
+  <!-- ===== Bubble text ===== -->
+  <g fill="#3a2730" font-family="'Bowlby One','DM Sans',system-ui,sans-serif" font-weight="700" text-anchor="middle">
+    <text x="320" y="198" font-size="44" letter-spacing="0">I LOVE CAKES</text>
+    <text x="320" y="256" font-size="44" letter-spacing="0">SO MUNCH!</text>
+  </g>
+
+  <!-- ===== Sparkle ===== -->
+  <path d="M905 905 C912 882 916 878 922 905 C916 928 912 932 905 905 Z M882 905 C905 898 909 894 905 905 C909 916 905 912 882 905 Z" fill="#e0a98e"/>
+</svg>
