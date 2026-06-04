@@ -14,8 +14,8 @@ backed by a new Supabase project, deployed on Vercel. UI/UX kept pixel-identical
 - [x] Port UI verbatim: styles.css, shadcn `components/ui/*`, hooks, lib, assets
 - [x] Wire Supabase browser client (publishable key, RLS)
 - [x] Local `.env.local` set with new Supabase URL + publishable key
-- [ ] **Real mascot PNG** — blocked: env network policy blocks lovable.app. Using a temporary
-      stand-in. Need `so-much-sweetness.lovable.app` allowlisted (or attach the PNG file).
+- [x] **Real mascot** — user uploaded the original 7200px PNG via GitHub; downscaled to 1200px
+      (203 KB, transparency intact) → `src/assets/so-munch-frog.png`; favicon regenerated. SVG stand-in removed.
 - [x] `npm install` (348 packages, clean)
 - [x] `npm run build` (clean production build, ~3.8s)
 - [x] Run locally (vite preview :4173) + screenshot desktop & mobile → **shown to user**

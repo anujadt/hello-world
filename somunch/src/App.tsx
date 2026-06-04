@@ -3,7 +3,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import wordmark from "@/assets/so-munch-wordmark.png";
 import lips from "@/assets/so-munch-lips.png";
-import frog from "@/assets/so-munch-frog.svg";
+import frog from "@/assets/so-munch-frog.png";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import {
