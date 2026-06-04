@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# build output
+dist
+dist-ssr
+
+# env (keep the example, ignore real values)
+.env
+.env.*
+!.env.example
+
+# vercel
+.vercel
+
+# logs / os
+*.log
+*.local
+.DS_Store
