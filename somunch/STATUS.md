@@ -21,8 +21,8 @@ backed by a new Supabase project, deployed on Vercel. UI/UX kept pixel-identical
 - [x] Run locally (vite preview :4173) + screenshot desktop & mobile → **shown to user**
 - [ ] **Awaiting user OK on local build** before deploy
 - [x] Verify DB write path: anon email-only insert ACCEPTED; no-contact insert REJECTED by RLS; table cleaned
-- [ ] Commit & push to branch `claude/keen-johnson-byRwy`
-- [ ] Vercel: create project (Root Directory = `somunch`) + env vars → deploy
+- [x] Commit & push to branch `claude/keen-johnson-byRwy` (commit 74f423c)
+- [ ] Vercel: create project (Root Directory = `somunch`) + env vars → deploy  ← **awaiting user go-ahead**
 - [ ] Post-deploy smoke test (open URL, submit form, confirm row)
 
 ## Key facts
